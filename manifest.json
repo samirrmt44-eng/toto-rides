@@ -1,0 +1,21 @@
+{
+  "name": "TOTO Rides - हर शहर की अपनी राइड",
+  "short_name": "TOTO",
+  "description": "Auto, Bike, Car booking - Ramgarh, Hazaribagh, Ranchi और सभी शहरों के लिए",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f1f5f9",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "hi",
+  "categories": ["transportation", "travel"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%230ea5e9'/><text x='256' y='380' font-size='320' text-anchor='middle'>🛺</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
