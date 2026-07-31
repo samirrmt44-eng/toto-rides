@@ -146,8 +146,8 @@ body{font-family:system-ui,sans-serif;background:#f0f2f5;color:#1a1a2e;line-heig
   <!-- MAIN APP -->
   <div id="app" style="display:none">
     <div class="tabs">
-      <div class="tab active" onclick="switchTab('cust')">👤 Customer</div>
-      <div class="tab" onclick="switchTab('drv')">🛺 Driver</div>
+      <div class="tab active" onclick="switchTab('cust', this)">👤 Customer</div>
+      <div class="tab" onclick="switchTab('drv', this)">🛺 Driver</div>
     </div>
 
     <!-- CUSTOMER -->
@@ -302,8 +302,19 @@ var fromLL=null,toLL=null,fromMk=null,toMk=null,routeLn=null,pickM=null,drvMks=[
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded',function(){
   makeQR();
-  var p=new URLSearchParams(location.search);
-  if(p.get('city'))pickCity(p.get('city'));
+  // Auto city from storage
+  try{
+    var saved = localStorage.getItem('totoCity');
+    var p=new URLSearchParams(location.search);
+    var qCity = p.get('city') || saved;
+    if(qCity && CITIES[qCity]){
+      // small delay so UI renders first
+      setTimeout(function(){ pickCity(qCity); }, 500);
+    }
+  }catch(e){
+    var p2=new URLSearchParams(location.search);
+    if(p2.get('city')) pickCity(p2.get('city'));
+  }
 });
 
 function toast(m){var t=document.getElementById('toast');t.textContent=m;t.className='show';setTimeout(function(){t.className=''},3000)}
@@ -313,16 +324,25 @@ function pickCity(id){
   var c=CITIES[id];
   if(!c){toast('⚠️ City not found');return}
   city={id:id,name:c.name,emoji:c.emoji,lat:c.lat,lng:c.lng};
+  try{ localStorage.setItem('totoCity', id); }catch(e){}
   document.getElementById('cityBox').style.display='none';
   document.getElementById('app').style.display='block';
   document.getElementById('cityBadge').textContent='📍 '+c.name;
   document.getElementById('regCity').textContent=c.name;
   document.getElementById('dashCity').textContent=c.name;
-  document.getElementById('shareLink').textContent=location.origin+location.pathname+'?city='+id;
-  initMap(c.lat,c.lng);
-  loadDrivers();
+  var baseUrl = location.origin && location.origin !== 'null' ? location.origin : '';
+  var path = location.pathname && location.pathname !== '' ? location.pathname : '/';
+  document.getElementById('shareLink').textContent= baseUrl + path +'?city='+id;
+  // Map init with delay + invalidate
+  setTimeout(function(){
+    initMap(c.lat,c.lng);
+    setTimeout(function(){ 
+      if(map){ try{ map.invalidateSize(); }catch(e){} }
+      loadDrivers();
+    }, 400);
+  }, 100);
   checkDrv();
-  toast('✅ '+c.name+' loaded!');
+  toast('✅ '+c.name+' loaded! Ab map aur booking khulega');
 }
 
 function gpsDetect(){
@@ -342,16 +362,25 @@ function hav(a,b,c,d){var R=6371000,t=function(x){return x*Math.PI/180},h=Math.s
 // ===== MAP =====
 function initMap(lat,lng){
   try{
+    if(map){ try{ map.remove(); }catch(e){} map=null; }
     map=L.map('map',{center:[lat,lng],zoom:13,zoomControl:false});
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OSM',maxZoom:19}).addTo(map);
     map.on('click',function(e){
       var lat=e.latlng.lat,lng=e.latlng.lng;
       if(pickM==='from'){setFrom(lat,lng);pickM=null}
       else if(pickM==='to'){setTo(lat,lng);pickM=null}
-      else setFrom(lat,lng);
+      else{
+        if(!fromLL) setFrom(lat,lng);
+        else setTo(lat,lng);
+      }
     });
+    setTimeout(function(){ try{ map.invalidateSize(); }catch(e){} }, 300);
     console.log('Map OK');
-  }catch(e){console.log('Map err',e)}
+  }catch(e){ 
+    console.log('Map err',e); 
+    toast('⚠️ Map load fail - Internet check karo');
+    document.getElementById('map').innerHTML='<div style="padding:40px;text-align:center;color:#64748b"><div style="font-size:32px">🗺️</div><p>Map load nahi hua<br>Internet ya Leaflet CSS check karo</p><button class="btn btn-b" style="margin-top:10px" onclick="initMap('+lat+','+lng+')">🔄 Retry Map</button></div>';
+  }
 }
 
 function goLocate(){
@@ -595,11 +624,14 @@ function doShareWA(){window.open('https://wa.me/?text='+encodeURIComponent('🛺
 function doCopy(){navigator.clipboard.writeText(document.getElementById('shareLink').textContent).then(function(){toast('📋 Copied!')})}
 
 // ===== TABS =====
-function switchTab(t){
+function switchTab(t, el){
   document.querySelectorAll('.tab').forEach(function(e){e.classList.remove('active')});
-  event.currentTarget.classList.add('active');
+  if(el) el.classList.add('active');
+  else if(event && event.currentTarget) event.currentTarget.classList.add('active');
   document.getElementById('tabCust').style.display=t==='cust'?'block':'none';
   document.getElementById('tabDrv').style.display=t==='drv'?'block':'none';
+  if(t==='cust' && map){ setTimeout(function(){ try{ map.invalidateSize(); }catch(e){} }, 200); }
+  if(t==='drv'){ checkDrv(); }
 }
 
 // ===== QR =====
