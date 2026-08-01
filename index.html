@@ -3,188 +3,671 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>TOTO - 1 Tap me Auto Book | Ramgarh Ranchi</title>
-<meta name="description" content="🛺 TOTO Rides - 1 Click me TOTO book karo - Ramgarh, Hazaribagh, Ranchi. Auto detect, Hindi me, easy install.">
+<title>TOTO Rides - FULL Advanced | Driver Login + Booking 100%</title>
 <meta name="theme-color" content="#0ea5e9">
+<meta name="description" content="TOTO Rides FULL - Driver Registration, Login, Dashboard, Customer Booking, Live Tracking - Easy Install, Short Domain">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui,-apple-system,sans-serif;background:#f0f9ff;color:#1a1a2e;line-height:1.4;-webkit-tap-highlight-color:transparent}
-.top{background:#fff;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;border-bottom:1px solid #e0f2fe;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-.top h1{font-size:20px;color:#0ea5e9;font-weight:900;letter-spacing:-0.5px}
-.install-banner{background:linear-gradient(135deg,#0ea5e9,#0284c7);color:#fff;padding:12px;display:none;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:50px;z-index:98}
-.install-banner.show{display:flex}
-.install-banner b{font-size:13px}
-.btn{padding:14px 20px;border:none;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:.2s;user-select:none}
-.btn:active{transform:scale(.96)}.btn-b{background:#0ea5e9;color:#fff;box-shadow:0 4px 14px rgba(14,165,233,.3)}.btn-g{background:#10b981;color:#fff}.btn-w{background:#fff;color:#333;border:1px solid #e2e8f0}
-.btn-full{width:100%;justify-content:center}.btn-big{padding:18px 24px;font-size:18px;border-radius:18px}
-.wrap{max-width:520px;margin:0 auto;padding:0 12px 80px}
-.hero{background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#fff;border-radius:0 0 24px 24px;padding:22px 16px;text-align:center}
-.hero h2{font-size:26px;font-weight:900;margin:6px 0}.hero p{font-size:13px;opacity:.9}
-.city-quick{display:flex;gap:8px;overflow-x:auto;padding:12px 0 6px;scrollbar-width:none}.city-quick::-webkit-scrollbar{display:none}
-.city-quick button{flex-shrink:0;padding:10px 16px;border-radius:20px;border:2px solid #0ea5e9;background:#fff;color:#0ea5e9;font-weight:800;font-size:12px}
-.city-quick button.active{background:#0ea5e9;color:#fff}
-#map{width:100%;height:340px;border-radius:18px;border:3px solid #fff;box-shadow:0 8px 30px rgba(0,0,0,.1);background:#e0f2fe}
-.map-wrap{position:relative;margin:12px 0}
-.map-btns{position:absolute;top:10px;right:10px;z-index:999;display:flex;flex-direction:column;gap:6px}
-.map-btns button{width:42px;height:42px;border-radius:12px;background:#fff;border:none;font-size:18px;box-shadow:0 4px 12px rgba(0,0,0,.15);cursor:pointer}
-.inp-box{background:#fff;border-radius:18px;box-shadow:0 4px 20px rgba(0,0,0,.06);margin:14px 0;overflow:hidden;border:1px solid #f1f5f9}
-.inp-row{display:flex;align-items:center;gap:10px;padding:14px 14px}.inp-row+.inp-row{border-top:1px solid #f1f5f9}
-.inp-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;border:3px solid #fff;box-shadow:0 0 0 2px currentColor}
-.inp-dot.g{color:#10b981;background:#10b981}.inp-dot.r{color:#ef4444;background:#ef4444}
-.inp-field{flex:1;border:none;font-size:15px;outline:none;font-family:inherit;background:none;font-weight:600}
-.fare-box{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #0ea5e9;border-radius:18px;padding:18px;text-align:center;display:none;margin:12px 0}
-.fare-big{font-size:40px;font-weight:900;color:#0ea5e9;letter-spacing:-1px}
-.drv-card{background:#fff;border-radius:16px;padding:14px;margin:8px 0;display:flex;align-items:center;gap:12px;box-shadow:0 2px 12px rgba(0,0,0,.05);border:1px solid #f1f5f9}
-.drv-card:active{transform:scale(.98)}
-.drv-img{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#0ea5e9,#0284c7);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;flex-shrink:0;overflow:hidden}
-.drv-info{flex:1}.drv-name{font-weight:800;font-size:15px}.drv-meta{font-size:12px;color:#64748b;margin-top:2px}
-.call-btn{background:#10b981;color:#fff;border:none;width:46px;height:46px;border-radius:14px;font-size:20px;cursor:pointer;flex-shrink:0}
-#toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:700;z-index:9999;opacity:0;transition:.3s;pointer-events:none;box-shadow:0 8px 30px rgba(0,0,0,.3)}#toast.show{opacity:1}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e2e8f0;display:flex;justify-content:space-around;padding:8px 0 calc(8px + env(safe-area-inset-bottom));z-index:99;max-width:520px;margin:0 auto}
-.bnav-item{flex:1;text-align:center;padding:6px;font-size:10px;font-weight:700;color:#94a3b8;cursor:pointer}.bnav-item.active{color:#0ea5e9}.bnav-item span{font-size:20px;display:block}
-.tutorial{background:#fffbeb;border:2px solid #fbbf24;border-radius:16px;padding:14px;margin:12px 0}.tutorial b{color:#92400e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,sans-serif;background:#f0f2f5;color:#1a1a2e;line-height:1.5}
+.top{background:#fff;padding:12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;border-bottom:1px solid #ddd}
+.top h1{font-size:18px;color:#0ea5e9}
+.wrap{max-width:500px;margin:0 auto;padding:12px}
+.btn{padding:12px 20px;border:none;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.2s}
+.btn:active{transform:scale(.97)}
+.btn-b{background:#0ea5e9;color:#fff}
+.btn-g{background:#10b981;color:#fff}
+.btn-r{background:#ef4444;color:#fff}
+.btn-y{background:#f59e0b;color:#fff}
+.btn-w{background:#fff;color:#333;border:1px solid #ddd}
+.btn-full{width:100%;justify-content:center}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin:10px 0}
+.sec{font-size:16px;font-weight:800;margin:16px 0 8px}
+/* HERO */
+.hero{background:linear-gradient(135deg,#0369a1,#38bdf8);color:#fff;border-radius:0 0 20px 20px;padding:24px 16px;text-align:center;margin:0 -12px}
+.hero h2{font-size:22px;margin:8px 0}
+.hero p{font-size:12px;opacity:.9}
+/* CITY SELECT */
+.city-box{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;margin:16px 0;text-align:center}
+.city-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.city-btn{padding:14px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+.city-btn:hover{border-color:#0ea5e9;background:#f0f9ff}
+/* MAP */
+#map{width:100%;height:320px;border-radius:14px;border:2px solid #e2e8f0}
+.map-wrap{position:relative}
+.map-btns{position:absolute;top:8px;right:8px;z-index:999;display:flex;flex-direction:column;gap:4px}
+.map-btns button{width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid #ddd;font-size:16px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+/* INPUTS */
+.inp-box{background:#fff;border:1px solid #e2e8f0;border-radius:12px;margin:10px 0}
+.inp-row{display:flex;align-items:center;gap:8px;padding:10px 12px}
+.inp-row+.inp-row{border-top:1px dashed #e2e8f0}
+.inp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.inp-dot.g{background:#10b981}
+.inp-dot.r{background:#ef4444}
+.inp-field{flex:1;border:none;font-size:14px;outline:none;font-family:inherit;background:none}
+/* FARE */
+.fare-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:16px;text-align:center;display:none}
+.fare-big{font-size:36px;font-weight:900;color:#0ea5e9}
+.fare-note{background:#fffbeb;border:1px solid #fbbf24;border-radius:10px;padding:10px;font-size:11px;color:#92400e;margin:8px 0}
+/* SHARED */
+.shared-box{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:14px;padding:14px;display:none}
+.shared-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.shared-item{background:#fff;border:1px solid #d1fae5;border-radius:10px;padding:10px;text-align:center}
+.shared-price{font-size:16px;font-weight:900;color:#10b981}
+.shared-save{background:#10b981;color:#fff;font-size:9px;padding:2px 6px;border-radius:5px;display:inline-block;margin-top:4px}
+/* NEARBY */
+.nearby{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:10px;padding:10px;font-size:12px;display:none;margin:10px 0}
+.nearby strong{color:#10b981}
+/* BOOK STATUS */
+.book-status{display:none;margin:10px 0}
+/* DRIVERS */
+.drv-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin:6px 0;display:flex;align-items:center;gap:10px}
+.drv-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0ea5e9,#0284c7);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;overflow:hidden}
+.drv-icon img{width:100%;height:100%;object-fit:cover}
+.drv-info{flex:1}
+.drv-name{font-weight:700;font-size:13px}
+.drv-area{font-size:10px;color:#64748b}
+.drv-meta{display:flex;gap:4px;margin-top:2px}
+.drv-badge{font-size:9px;padding:2px 6px;border-radius:5px;background:#eff6ff;color:#0ea5e9;font-weight:600}
+.drv-star{font-size:10px;color:#f59e0b;font-weight:700}
+/* CHAT */
+.chat-box{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden}
+.chat-top{background:#0ea5e9;color:#fff;padding:10px 12px;display:flex;align-items:center;gap:8px}
+.chat-av{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center}
+.chat-name{font-weight:700;font-size:12px}
+.chat-msgs{height:160px;overflow-y:auto;padding:10px;background:#f8fafc;display:flex;flex-direction:column;gap:6px}
+.chat-b{max-width:80%;padding:8px 10px;border-radius:10px;font-size:11px}
+.chat-b.sent{background:#0ea5e9;color:#fff;align-self:flex-end;border-bottom-right-radius:2px}
+.chat-b.recv{background:#fff;align-self:flex-start;border-bottom-left-radius:2px;border:1px solid #e2e8f0}
+.chat-input{display:flex;gap:6px;padding:8px;border-top:1px solid #e2e8f0}
+.chat-input input{flex:1;padding:8px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;outline:none;font-family:inherit}
+.chat-input button{width:36px;height:36px;border-radius:8px;background:#0ea5e9;border:none;color:#fff;font-size:16px;cursor:pointer}
+/* DRIVER PANEL */
+.drv-panel{display:none}
+.drv-stat{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:10px 0}
+.drv-stat-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px;text-align:center}
+.drv-stat-v{font-size:18px;font-weight:900;color:#0ea5e9}
+.drv-stat-l{font-size:9px;color:#64748b;font-weight:600;text-transform:uppercase}
+/* TABS */
+.tabs{display:flex;background:#fff;border-radius:12px;overflow:hidden;margin:12px 0;border:1px solid #e2e8f0}
+.tab{flex:1;padding:10px;text-align:center;cursor:pointer;font-weight:700;font-size:13px;border-bottom:3px solid transparent}
+.tab.active{color:#0ea5e9;border-bottom-color:#0ea5e9;background:#f0f9ff}
+/* SHARE */
+.share-box{background:#fef3c7;border:1px solid #fbbf24;border-radius:12px;padding:12px;margin:10px 0}
+.share-link{background:#fff;border:1px solid #fbbf24;border-radius:8px;padding:6px 10px;font-size:10px;color:#92400e;word-break:break-all;margin:6px 0;font-family:monospace}
+/* INSTALL */
+.install-box{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:12px;margin:12px 0;text-align:center}
+/* QR */
+.qr-box{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin:12px 0;text-align:center}
+/* TOAST */
+#toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:600;z-index:999;opacity:0;transition:.3s;pointer-events:none}
+#toast.show{opacity:1}
+.sos{position:fixed;bottom:16px;right:16px;width:48px;height:48px;border-radius:14px;background:#ef4444;border:none;color:#fff;font-size:20px;cursor:pointer;z-index:99}
+.footer{text-align:center;padding:16px;color:#94a3b8;font-size:10px}
 </style>
 </head>
 <body>
-<div class="top"><h1>🛺 TOTO</h1><div style="display:flex;gap:6px;align-items:center"><span id="cityBadge" style="font-size:11px;background:#ecfdf5;color:#059669;padding:4px 10px;border-radius:20px;font-weight:800">📍 Detecting...</span><button onclick="shareApp()" style="border:none;background:#f1f5f9;width:32px;height:32px;border-radius:10px">↗️</button></div></div>
 
-<div id="installBanner" class="install-banner">
-  <div><b>📲 TOTO Install Karo - 1 Click Me!</b><div style="font-size:11px;opacity:.9">Home Screen par Add karo, app ki tarah chalega</div></div>
-  <button class="btn btn-w" style="padding:8px 14px;font-size:12px;white-space:nowrap" onclick="installApp()">📲 Install</button>
+<div class="top">
+  <h1>🛺 TOTO FULL</h1>
+  <div style="display:flex;gap:6px;align-items:center">
+    <span style="font-size:11px;color:#059669;background:#ecfdf5;padding:4px 8px;border-radius:10px" id="cityBadge">Select City</span>
+    <button onclick="shareApp()" style="border:none;background:#f1f5f9;width:32px;height:32px;border-radius:10px;cursor:pointer">↗️</button>
+  </div>
 </div>
+<div id="installBanner" style="display:none;background:linear-gradient(135deg,#0ea5e9,#0284c7);color:#fff;padding:12px;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:48px;z-index:98"><div><b>📲 TOTO Install Karo - App Banega!</b><div style="font-size:11px;opacity:.9">Home Screen par 1-click install, chota domain ready</div></div><button style="background:#fff;color:#0ea5e9;border:none;padding:8px 14px;border-radius:10px;font-weight:800;font-size:12px" onclick="installApp()">📲 Install</button></div>
+<div id="toast"></div>
 
 <div class="wrap">
   <div class="hero">
-    <div style="font-size:42px">🛺</div>
-    <h2>1 Tap me TOTO Book</h2>
-    <p>Gaon se shahar - Ramgarh, Ranchi, Hazaribagh - 100% Easy</p>
-    <div style="margin-top:12px;background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px;font-size:12px;display:inline-block">✅ No Login • Hindi me • Auto GPS</div>
+    <div style="font-size:36px">🛺</div>
+    <h2>TOTO Rides</h2>
+    <p>शहर चुनो → Map देखो → Book करो → Driver आएगा!</p>
   </div>
 
-  <div class="city-quick" id="cityQuick"></div>
-
-  <div class="tutorial" id="howToBox">
-    <div style="font-weight:900;color:#92400e">👋 Kaise Use Karein? (30 Sec)</div>
-    <div style="font-size:12px;margin-top:6px;color:#78350f;line-height:1.5">
-      1️⃣ Upar apna shahar chuno (Ramgarh) <br>
-      2️⃣ Map par jahan se jana hai wahan tap karo - Pickup set <br>
-      3️⃣ Jahan jana hai wahan tap karo - Drop set <br>
-      4️⃣ <b>Book</b> dabao - Driver call karega!
+  <!-- CITY SELECT -->
+  <div class="city-box" id="cityBox">
+    <div style="font-size:32px;margin-bottom:8px">📍</div>
+    <div style="font-weight:700;font-size:15px;color:#0ea5e9">अपना शहर चुनें</div>
+    <div class="city-grid">
+      <button class="city-btn" onclick="pickCity('ramgarh')">🏔️ Ramgarh</button>
+      <button class="city-btn" onclick="pickCity('hazaribagh')">⛰️ Hazaribagh</button>
+      <button class="city-btn" onclick="pickCity('ranchi')">🏙️ Ranchi</button>
+      <button class="city-btn" onclick="pickCity('dhanbad')">⛏️ Dhanbad</button>
+      <button class="city-btn" onclick="pickCity('patna')">🏛️ Patna</button>
+      <button class="city-btn" onclick="pickCity('kolkata')">🌉 Kolkata</button>
     </div>
-    <button onclick="document.getElementById('howToBox').style.display='none'" style="margin-top:8px;border:none;background:#f59e0b;color:#fff;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700">Samajh Gaya ✅</button>
-  </div>
-
-  <div class="map-wrap">
-    <div id="map"><div style="padding:80px 20px;text-align:center;color:#64748b"><div style="font-size:36px">🗺️</div><p style="font-weight:700;margin-top:10px">Map Loading...</p><p style="font-size:11px;margin-top:4px">Internet tez karo<br>GPS ON rakho</p></div></div>
-    <div class="map-btns">
-      <button onclick="map&&map.zoomIn()">➕</button>
-      <button onclick="map&&map.zoomOut()">➖</button>
-      <button onclick="goLocate()" style="background:#0ea5e9;color:#fff">📍</button>
-      <button onclick="loadDrivers()">🔄</button>
+    <button class="btn btn-b btn-full" style="margin-top:10px" onclick="gpsDetect()">📍 GPS Auto Detect</button>
+    <div class="install-box">
+      <div style="font-size:12px;font-weight:700;color:#065f46;margin-bottom:6px">📲 App Install करें</div>
+      <button class="btn btn-g btn-full" onclick="doInstall()">📲 Home Screen पर Install</button>
+    </div>
+    <div class="qr-box">
+      <div style="font-size:12px;font-weight:700;margin-bottom:6px">📷 QR Code Scan करें</div>
+      <img id="qrImg" style="width:130px;height:130px;border:1px solid #ddd;border-radius:8px">
+      <div style="font-size:9px;color:#94a3b8;margin-top:4px;word-break:break-all" id="qrUrl"></div>
     </div>
   </div>
 
-  <div class="inp-box">
-    <div class="inp-row"><div class="inp-dot g"></div><input class="inp-field" id="fromIn" placeholder="📍 Kahan se? Map par tap karo - Auto GPS" readonly><button onclick="goLocate()" style="border:none;background:#ecfdf5;color:#059669;padding:6px 10px;border-radius:8px;font-size:11px;font-weight:800">GPS</button></div>
-    <div class="inp-row"><div class="inp-dot r"></div><input class="inp-field" id="toIn" placeholder="🏁 Kahan jana hai? Map par tap karo"><button onclick="document.getElementById('toIn').value='';toLL=null;if(toMk&&map)map.removeLayer(toMk);toast('🗑️ Clear')" style="border:none;background:#fef2f2;color:#ef4444;padding:6px 10px;border-radius:8px;font-size:11px">Clear</button></div>
+  <!-- MAIN APP -->
+  <div id="app" style="display:none">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('cust', this)">👤 Customer</div>
+      <div class="tab" onclick="switchTab('drv', this)">🛺 Driver</div>
+    </div>
+
+    <!-- CUSTOMER -->
+    <div id="tabCust">
+      <div class="sec">🗺️ Live Map</div>
+      <div class="map-wrap">
+        <div id="map"></div>
+        <div class="map-btns">
+          <button onclick="map.zoomIn()">➕</button>
+          <button onclick="map.zoomOut()">➖</button>
+          <button onclick="goLocate()">📍</button>
+          <button onclick="loadDrivers()">🔄</button>
+        </div>
+      </div>
+
+      <div class="inp-box">
+        <div class="inp-row">
+          <div class="inp-dot g"></div>
+          <input class="inp-field" id="fromIn" placeholder="📍 Pickup (Map tap)" readonly onclick="pickM='from'">
+        </div>
+        <div class="inp-row">
+          <div class="inp-dot r"></div>
+          <input class="inp-field" id="toIn" placeholder="🏁 Drop (Map tap)" readonly onclick="pickM='to'">
+        </div>
+      </div>
+
+      <div class="fare-box" id="fareBox">
+        <div class="fare-big" id="fareVal">₹0</div>
+        <div style="font-size:10px;color:#64748b">अनुमानित किराया (PC)</div>
+      </div>
+      <div class="fare-note" id="fareNote" style="display:none">⚠️ यह PC fare है। Driver से confirm करें।</div>
+
+      <div class="shared-box" id="sharedBox">
+        <div style="font-weight:800;font-size:13px;color:#065f46">🤝 साझा किराया</div>
+        <div class="shared-grid">
+          <div class="shared-item"><div style="font-size:14px">👤</div><div style="font-size:9px;color:#64748b">अकेले</div><div class="shared-price" id="sh1">₹0</div></div>
+          <div class="shared-item"><div style="font-size:14px">👥</div><div style="font-size:9px;color:#64748b">2 लोग</div><div class="shared-price" id="sh2">₹0</div><div class="shared-save">SAVE 35%</div></div>
+        </div>
+      </div>
+
+      <div class="nearby" id="nearBox">🛺 <strong id="nearCnt">0</strong> ड्राइवर online</div>
+
+      <div class="card" style="text-align:center">
+        <div style="font-weight:800;font-size:15px;color:#0369a1;margin-bottom:8px">📱 Ride Book करें</div>
+        <button class="btn btn-b btn-full" onclick="bookRide()" style="font-size:15px">🚀 अभी Book करें</button>
+      </div>
+
+      <div class="book-status" id="bookSt"></div>
+
+      <button class="btn btn-w btn-full" onclick="loadDrivers()" style="margin:10px 0">🔄 Refresh Drivers</button>
+
+      <div class="sec">📤 Share</div>
+      <div class="share-box">
+        <div class="share-link" id="shareLink"></div>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-y" onclick="doShareWA()">📱 WhatsApp</button>
+          <button class="btn btn-b" onclick="doCopy()">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="sec">🛺 उपलब्ध चालक</div>
+      <div id="drvList"><div class="card" style="text-align:center">Loading...</div></div>
+
+      <div class="sec">💬 Chat</div>
+      <div class="chat-box">
+        <div class="chat-top"><div class="chat-av" id="chAv">🛺</div><div class="chat-name" id="chNm">चालक चुनें</div></div>
+        <div class="chat-msgs" id="chMsgs"><div class="chat-b recv">🙏 नमस्ते! कहाँ जाना है?</div></div>
+        <div class="chat-input"><input id="chIn" placeholder="संदेश..." onkeypress="if(event.key==='Enter')doSend()"><button onclick="doSend()">➤</button></div>
+      </div>
+    </div>
+
+    <!-- DRIVER -->
+    <div id="tabDrv" class="drv-panel">
+      <div id="drvReg">
+        <div class="sec">🛺 Driver Registration</div>
+        <div class="card">
+          <div style="font-size:11px;color:#059669;background:#ecfdf5;padding:6px 8px;border-radius:8px;margin-bottom:10px">📍 शहर: <strong id="regCity">-</strong></div>
+          <div style="text-align:center;margin-bottom:10px">
+            <div id="photoBox" style="width:70px;height:70px;border-radius:50%;background:#e2e8f0;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden;border:3px dashed #ccc;cursor:pointer" onclick="document.getElementById('photoIn').click()">📷</div>
+            <input type="file" id="photoIn" accept="image/*" style="display:none" onchange="doPhoto(this)">
+            <div style="font-size:9px;color:#64748b">📷 Photo</div>
+          </div>
+          <div style="margin-bottom:6px"><label style="font-size:10px;font-weight:600;color:#64748b">👤 नाम</label><input id="dName" style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;margin-top:2px" placeholder="नाम"></div>
+          <div style="margin-bottom:6px"><label style="font-size:10px;font-weight:600;color:#64748b">📱 नंबर</label><input id="dPhone" style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;margin-top:2px" placeholder="10 अंक"></div>
+          <div style="margin-bottom:6px"><label style="font-size:10px;font-weight:600;color:#64748b">🛺 Vehicle</label><select id="dVeh" style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;margin-top:2px"><option value="auto">🛺 Auto</option><option value="bike">🏍️ Bike</option><option value="car">🚗 Car</option></select></div>
+          <div style="margin-bottom:6px"><label style="font-size:10px;font-weight:600;color:#64748b">🔢 Vehicle No</label><input id="dNum" style="width:100%;padding:8px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;margin-top:2px" placeholder="JH 02 AB 1234"></div>
+          <button class="btn btn-g btn-full" onclick="doRegister()">✅ Register</button>
+        </div>
+      </div>
+      <div id="drvDash" style="display:none">
+        <div class="sec">🛺 Dashboard</div>
+        <div class="card" style="text-align:center">
+          <div id="dashPhoto" style="width:60px;height:60px;border-radius:50%;background:#e2e8f0;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden;border:3px solid #0ea5e9">👤</div>
+          <div style="font-weight:800;font-size:15px" id="dashName">-</div>
+          <div style="font-size:10px;color:#64748b" id="dashVeh">-</div>
+        </div>
+        <div class="card" style="background:#fef3c7;border-color:#fbbf24">
+          <div style="text-align:center;font-size:18px;font-weight:900;color:#92400e" id="dashCity">-</div>
+          <div style="text-align:center;margin-top:6px"><button class="btn btn-y" onclick="doEditCity()">✏️ नाम बदलें</button></div>
+          <div id="editForm" style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid #fbbf24">
+            <input id="editIn" style="width:100%;padding:8px;border:1px solid #fbbf24;border-radius:8px;font-size:14px;font-weight:600" placeholder="सही नाम">
+            <div style="display:flex;gap:6px;margin-top:6px">
+              <button class="btn btn-g" style="flex:1;justify-content:center" onclick="doSaveCity()">💾 Save</button>
+              <button class="btn btn-w" style="flex:1;justify-content:center" onclick="document.getElementById('editForm').style.display='none'">Cancel</button>
+            </div>
+          </div>
+        </div>
+        <div class="drv-stat">
+          <div class="drv-stat-card"><div class="drv-stat-v" id="sRides">0</div><div class="drv-stat-l">Rides</div></div>
+          <div class="drv-stat-card"><div class="drv-stat-v" id="sEarn">₹0</div><div class="drv-stat-l">Earnings</div></div>
+          <div class="drv-stat-card"><div class="drv-stat-v">4.8</div><div class="drv-stat-l">Rating</div></div>
+        </div>
+        <div class="card">
+          <div style="font-size:12px;font-weight:700;color:#5b21b6;margin-bottom:4px">📤 Share Link</div>
+          <div class="share-link" id="drvLink"></div>
+          <button class="btn btn-y" onclick="doDrvShare()">📱 WhatsApp Share</button>
+        </div>
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="font-size:20px">🟢</div>
+            <div style="flex:1"><div style="font-weight:700;font-size:12px">Online</div><div style="font-size:10px;color:#64748b" id="onSt">🔴 Offline</div></div>
+            <button class="btn btn-g" id="onBtn" onclick="doToggle()">🟢 Go Online</button>
+          </div>
+        </div>
+        <div class="sec">📋 Bookings</div>
+        <div id="drvBooks"><div class="card" style="text-align:center;padding:16px"><div style="font-size:24px">📋</div><div style="font-size:12px">कोई booking नहीं</div></div></div>
+      </div>
+    </div>
   </div>
 
-  <div class="fare-box" id="fareBox">
-    <div style="font-size:12px;font-weight:800;color:#0369a1;letter-spacing:1px">ESTIMATED FARE</div>
-    <div class="fare-big" id="fareVal">₹0</div>
-    <div style="font-size:11px;color:#64748b;margin-top:4px">Driver se final confirm karein</div>
-  </div>
-
-  <button class="btn btn-b btn-full btn-big" onclick="bookRide()" style="margin:12px 0"><span style="font-size:22px">🚀</span> TOTO Book Karo - 1 Tap</button>
-
-  <div id="bookSt" style="display:none"></div>
-
-  <div style="display:flex;gap:8px;margin:12px 0">
-    <button class="btn btn-w" style="flex:1" onclick="shareApp()">📤 Share App</button>
-    <button class="btn btn-w" style="flex:1" onclick="window.open('https://wa.me/?text='+encodeURIComponent('🛺 TOTO Rides - 1 Tap me Auto Book karo! '+location.href))">💬 WhatsApp</button>
-  </div>
-
-  <div style="margin-top:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h3 style="font-size:15px;font-weight:900">🛺 Pass Ke Drivers - Online</h3><span id="nearCnt" style="background:#ecfdf5;color:#059669;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:800">0 online</span></div><div id="drvList"><div class="card" style="text-align:center;padding:20px">📍 City select karo - Drivers dikhenge</div></div></div>
+  <div class="footer">🛺 TOTO • DainikState © 2026</div>
 </div>
 
-<div class="bottom-nav">
-  <div class="bnav-item active" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span>🏠</span>Home</div>
-  <div class="bnav-item" onclick="goLocate()"><span>📍</span>GPS</div>
-  <div class="bnav-item" onclick="document.getElementById('fromIn').scrollIntoView({behavior:'smooth'})"><span>🚀</span>Book</div>
-  <div class="bnav-item" onclick="shareApp()"><span>📤</span>Share</div>
-</div>
+<button class="sos" onclick="toast('🆘 SOS')">🆘</button>
 
-<div id="toast"></div>
-
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-const CITIES={ramgarh:{name:'Ramgarh',lat:23.63,lng:85.51},hazaribagh:{name:'Hazaribagh',lat:23.99,lng:85.36},ranchi:{name:'Ranchi',lat:23.34,lng:85.31},dhanbad:{name:'Dhanbad',lat:23.80,lng:86.43},patna:{name:'Patna',lat:25.61,lng:85.14},kolkata:{name:'Kolkata',lat:22.57,lng:88.36}};
-const DEMOS={ramgarh:[{n:'Ram Prasad',t:'auto',num:'JH02A1234',r:4.8, rides:342, lat:23.63,lng:85.51, area:'Bus Stand', ph:'919000000001'},{n:'Shyam Auto',t:'auto',num:'JH02B5678',r:4.6,rides:210,lat:23.635,lng:85.515,area:'Gola Road', ph:'919000000002'},{n:'Vikash Bike',t:'bike',num:'JH02C9012',r:4.9,rides:500,lat:23.64,lng:85.52,area:'Main Road', ph:'919000000003'}],hazaribagh:[{n:'Vikash',t:'auto',num:'JH02C9012',r:4.9,rides:567,lat:23.99,lng:85.36,area:'Gandhi Maidan',ph:'919000000004'}],ranchi:[{n:'Ajay Ranchi',t:'auto',num:'JH01A1111',r:4.7,rides:500,lat:23.35,lng:85.32,area:'Main Road', ph:'919000000005'}],dhanbad:[{n:'Rakesh Dhanbad',t:'auto',num:'JH10A4444',r:4.5,rides:200,lat:23.80,lng:86.43,area:'Bank More', ph:'919000000006'}],patna:[{n:'Sanjay Patna',t:'car',num:'BR01A1111',r:4.6,rides:300,lat:25.61,lng:85.14,area:'Station', ph:'919000000007'}],kolkata:[{n:'Raju Kolkata',t:'auto',num:'WB01A1111',r:4.5,rides:400,lat:22.57,lng:88.36,area:'Howrah', ph:'919000000008'}]};
+// ===== FIREBASE =====
+var db=null,fb=false;
+try{firebase.initializeApp({apiKey:"AIzaSyDJdRvlWn4UNqu2JSwRayHg49qEymG55KY",authDomain:"toto-rides.firebaseapp.com",databaseURL:"https://toto-rides-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"toto-rides"});db=firebase.database();fb=true;console.log('FB OK')}catch(e){console.log('FB err',e)}
 
-let map=null,city=null,fromLL=null,toLL=null,fromMk=null,toMk=null,routeLn=null,drvMks=[],deferredPrompt=null;
+// ===== DATA =====
+var CITIES={ramgarh:{name:'Ramgarh',emoji:'🏔️',lat:23.63,lng:85.51},hazaribagh:{name:'Hazaribagh',emoji:'⛰️',lat:23.99,lng:85.36},ranchi:{name:'Ranchi',emoji:'🏙️',lat:23.34,lng:85.31},dhanbad:{name:'Dhanbad',emoji:'⛏️',lat:23.80,lng:86.43},patna:{name:'Patna',emoji:'🏛️',lat:25.61,lng:85.14},kolkata:{name:'Kolkata',emoji:'🌉',lat:22.57,lng:88.36}};
 
-function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.className='show'; setTimeout(()=>t.className='',3000); }
+var DEMOS={ramgarh:[{n:'राम प्रसाद',t:'auto',num:'JH02A1234',r:4.8,rides:342,lat:23.63,lng:85.51,area:'Ramgarh'},{n:'श्याम यादव',t:'bike',num:'JH02B5678',r:4.6,rides:218,lat:23.64,lng:85.52,area:'Gola'}],hazaribagh:[{n:'विकास',t:'auto',num:'JH02C9012',r:4.9,rides:567,lat:23.99,lng:85.36,area:'Gandhi Maidan'},{n:'सोनू',t:'bike',num:'JH02D3456',r:4.7,rides:189,lat:23.98,lng:85.37,area:'Meru'}],ranchi:[{n:'अजय',t:'auto',num:'JH01A1111',r:4.7,rides:500,lat:23.35,lng:85.32,area:'Main Road'}],dhanbad:[{n:'राकेश',t:'auto',num:'JH10A4444',r:4.5,rides:200,lat:23.80,lng:86.43,area:'Bank More'}],patna:[{n:'संजय',t:'car',num:'BR01A1111',r:4.6,rides:300,lat:25.61,lng:85.14,area:'Station'}],kolkata:[{n:'राजू',t:'auto',num:'WB01A1111',r:4.5,rides:400,lat:22.57,lng:88.36,area:'Howrah'}]};
 
-function initQuickCities(){
-  const box=document.getElementById('cityQuick');
-  box.innerHTML=Object.keys(CITIES).map(id=>`<button onclick="pickCity('${id}')" id="qbtn-${id}">${CITIES[id].name}</button>`).join('');
-}
+var map=null,city=null,drv=null,photo='';
+var fromLL=null,toLL=null,fromMk=null,toMk=null,routeLn=null,pickM=null,drvMks=[],trackMk=null;
+
+// ===== INIT REMOVED - REPLACED BELOW WITH ADVANCED INIT =====
+
+
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.className='show';setTimeout(function(){t.className=''},3000)}
+
+// ===== CITY - ADVANCED FIXED =====
 function pickCity(id){
-  const c=CITIES[id]; if(!c) return;
-  city={id,name:c.name,lat:c.lat,lng:c.lng};
-  try{ localStorage.setItem('totoCity', id); }catch{}
-  document.getElementById('cityBadge').textContent='📍 '+c.name;
-  document.querySelectorAll('.city-quick button').forEach(b=>b.classList.remove('active'));
-  const qb=document.getElementById('qbtn-'+id); if(qb) qb.classList.add('active');
-  setTimeout(()=>{ initMap(c.lat,c.lng); loadDrivers(); }, 150);
-  toast('✅ '+c.name+' selected');
-  document.getElementById('howToBox').style.display='none';
+  try{
+    var c=CITIES[id];
+    if(!c){toast('⚠️ City not found');return}
+    city={id:id,name:c.name,emoji:c.emoji,lat:c.lat,lng:c.lng};
+    try{ localStorage.setItem('totoCity', id); }catch(e){}
+    var cityBox=document.getElementById('cityBox'); if(cityBox) cityBox.style.display='none';
+    var app=document.getElementById('app'); if(app) app.style.display='block';
+    var badge=document.getElementById('cityBadge'); if(badge) badge.textContent='📍 '+c.name;
+    var rc=document.getElementById('regCity'); if(rc) rc.textContent=c.name;
+    var dc=document.getElementById('dashCity'); if(dc) dc.textContent=c.name;
+    var baseUrl = location.origin && location.origin!=='null' ? location.origin : '';
+    var path = location.pathname || '/';
+    var sl=document.getElementById('shareLink'); if(sl) sl.textContent= baseUrl + path +'?city='+id;
+    // Map with delay + invalidate
+    setTimeout(function(){
+      try{ initMap(c.lat,c.lng); }catch(e){ toast('Map error: '+e.message); }
+      setTimeout(function(){ try{ if(map) map.invalidateSize(); loadDrivers(); }catch(e){} }, 500);
+    }, 150);
+    try{ checkDrv(); }catch(e){}
+    toast('✅ '+c.name+' loaded! Driver login ready');
+  }catch(e){
+    toast('❌ Error: '+e.message);
+    try{ document.getElementById('cityBox').style.display='none'; document.getElementById('app').style.display='block'; }catch(_){}
+  }
 }
+
+function gpsDetect(){
+  if(!navigator.geolocation){toast('⚠️ GPS not supported');return}
+  toast('📍 Detecting...');
+  navigator.geolocation.getCurrentPosition(function(p){
+    var lat=p.coords.latitude,lng=p.coords.longitude;
+    var best=null,minD=999999;
+    for(var k in CITIES){var d=hav(lat,lng,CITIES[k].lat,CITIES[k].lng);if(d<minD){minD=d;best=k}}
+    if(best&&minD<100000)pickCity(best);
+    else toast('⚠️ No city found — select manually');
+  },function(e){toast('⚠️ GPS error')},{timeout:10000});
+}
+
+function hav(a,b,c,d){var R=6371000,t=function(x){return x*Math.PI/180},h=Math.sin(t(c-a)/2)**2+Math.cos(t(a))*Math.cos(t(c))*Math.sin(t(d-b)/2)**2;return R*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h))}
+
+// ===== MAP - FIXED ADVANCED =====
 function initMap(lat,lng){
   try{
-    if(map){ try{ map.remove(); }catch{} map=null; }
-    const el=document.getElementById('map'); el.innerHTML='';
+    if(typeof L==='undefined') throw new Error('Leaflet not loaded - Internet check');
+    if(map){ try{ map.remove(); }catch(e){} map=null; }
+    var mapEl=document.getElementById('map'); if(!mapEl){ console.log('map element missing'); return; }
+    mapEl.innerHTML='';
     map=L.map('map',{center:[lat,lng],zoom:13,zoomControl:false});
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OSM'}).addTo(map);
-    map.on('click', e=>{
-      const la=e.latlng.lat, ln=e.latlng.lng;
-      if(!fromLL){ setFrom(la,ln); toast('✅ Pickup set - Ab drop batao'); }
-      else{ setTo(la,ln); }
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OSM',maxZoom:19}).addTo(map);
+    map.on('click',function(e){
+      var la=e.latlng.lat,ln=e.latlng.lng;
+      if(pickM==='from'){setFrom(la,ln);pickM=null}
+      else if(pickM==='to'){setTo(la,ln);pickM=null}
+      else{ if(!fromLL) setFrom(la,ln); else setTo(la,ln); }
     });
-    setTimeout(()=>{ try{ map.invalidateSize(); }catch{} }, 400);
-    // auto set from to city center
-    setFrom(lat,lng);
-  }catch(e){ document.getElementById('map').innerHTML=`<div style="padding:30px;text-align:center">Map Error: ${e.message}<br><button class="btn btn-b" onclick="initMap(${lat},${lng})">Retry</button></div>`; }
+    setTimeout(function(){ try{ map.invalidateSize(); }catch(e){} }, 350);
+    console.log('Map OK Advanced');
+  }catch(e){
+    console.log('Map err',e);
+    var el=document.getElementById('map');
+    if(el) el.innerHTML='<div style="padding:30px;text-align:center;color:#64748b"><div style="font-size:32px">🗺️</div><p>Map Error: '+e.message+'</p><button class="btn btn-b" style="margin-top:10px" onclick="if(city) initMap(city.lat,city.lng)">🔄 Retry</button></div>';
+  }
 }
-function setFrom(lat,lng){ if(fromMk && map) try{ map.removeLayer(fromMk); }catch{} fromLL={lat,lng}; if(map) fromMk=L.marker([lat,lng],{icon:L.divIcon({html:'<div style="width:22px;height:22px;background:#10b981;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3)"></div>',iconSize:[22,22],iconAnchor:[11,22]})}).addTo(map); document.getElementById('fromIn').value=lat.toFixed(4)+','+lng.toFixed(4)+' (Auto)'; if(toLL) doRoute(); }
-function setTo(lat,lng){ if(toMk && map) try{ map.removeLayer(toMk); }catch{} toLL={lat,lng}; if(map) toMk=L.marker([lat,lng],{icon:L.divIcon({html:'<div style="width:22px;height:22px;background:#ef4444;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3)"></div>',iconSize:[22,22],iconAnchor:[11,22]})}).addTo(map); document.getElementById('toIn').value=lat.toFixed(4)+','+lng.toFixed(4); doRoute(); }
-function doRoute(){ if(!fromLL||!toLL||!map) return; fetch(`https://router.project-osrm.org/route/v1/driving/${fromLL.lng},${fromLL.lat};${toLL.lng},${toLL.lat}?overview=full&geometries=geojson`).then(r=>r.json()).then(d=>{ if(d.code==='Ok'){ const route=d.routes[0]; const coords=route.geometry.coordinates.map(c=>[c[1],c[0]]); const km=(route.distance/1000).toFixed(1); const fare=Math.round(15+km*8); if(routeLn) try{ map.removeLayer(routeLn); }catch{} routeLn=L.polyline(coords,{color:'#0ea5e9',weight:5}).addTo(map); map.fitBounds(routeLn.getBounds(),{padding:[40,40]}); document.getElementById('fareBox').style.display='block'; document.getElementById('fareVal').textContent='₹'+fare+' ('+km+' km)'; } }).catch(()=>{}); }
-function loadDrivers(){ if(!city) return; drvMks.forEach(m=>{ try{ map&&map.removeLayer(m); }catch{} }); drvMks=[]; let drivers=(DEMOS[city.id]||[]); document.getElementById('nearCnt').textContent=drivers.length+' online'; const list=document.getElementById('drvList'); if(!drivers.length){ list.innerHTML='<div style="background:#fff;padding:20px;border-radius:16px;text-align:center">No drivers - 1st driver bano!</div>'; return; } list.innerHTML=drivers.map(d=>`<div class="drv-card" onclick="callDriver('${d.ph}')"><div class="drv-img">🛺</div><div class="drv-info"><div class="drv-name">${d.n} <span style="background:#ecfdf5;color:#059669;font-size:10px;padding:2px 6px;border-radius:10px">● Online</span></div><div class="drv-meta">📍 ${d.area} • ${d.num} • ⭐ ${d.r} • ${d.rides} rides</div></div><button class="call-btn" onclick="event.stopPropagation();callDriver('${d.ph}')">📞</button></div>`).join(''); if(map){ drivers.forEach(d=>{ const mk=L.marker([d.lat+(Math.random()-.5)*.002,d.lng+(Math.random()-.5)*.002],{icon:L.divIcon({html:'<div style="width:30px;height:30px;background:#f59e0b;border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center;font-size:16px">🛺</div>',iconSize:[30,30]})}).addTo(map); drvMks.push(mk); }); } }
-function callDriver(ph){ window.open('tel:'+ph); toast('📞 Calling driver...'); }
-function bookRide(){ if(!fromLL||!toLL){ toast('⚠️ Pehle Map par 2 jagah tap karo - Pickup aur Drop'); document.getElementById('map').scrollIntoView({behavior:'smooth'}); return; } const fare=document.getElementById('fareVal').textContent; const el=document.getElementById('bookSt'); el.style.display='block'; el.innerHTML=`<div style="background:#ecfdf5;border:2px solid #10b981;border-radius:16px;padding:18px;text-align:center"><div style="font-size:36px">✅</div><div style="font-weight:900;color:#059669;font-size:18px">TOTO Booked!</div><div style="font-size:13px;margin-top:6px">Driver ab call karega - 2 min me aayega</div><div style="font-size:12px;margin-top:8px;background:#fff;padding:8px;border-radius:10px">Fare: ${fare}</div><button class="btn btn-w" style="margin-top:10px" onclick="this.parentElement.parentElement.style.display='none'">Ok</button></div>`; toast('🎉 Booked! Driver call karega'); if(navigator.vibrate) navigator.vibrate(100); }
-function goLocate(){ if(!navigator.geolocation){ toast('GPS not supported'); return; } toast('📍 GPS se location le raha hu...'); navigator.geolocation.getCurrentPosition(p=>{ const lat=p.coords.latitude,lng=p.coords.longitude; if(map) map.setView([lat,lng],15); setFrom(lat,lng); // find nearest city
-let best=null,min=999999; for(let k in CITIES){ const d=Math.hypot(lat-CITIES[k].lat,lng-CITIES[k].lng); if(d<min){min=d;best=k;}} if(best && !city) pickCity(best);
-}, ()=>toast('⚠️ GPS ON karo'), {enableHighAccuracy:true}); }
-function shareApp(){ if(navigator.share){ navigator.share({title:'TOTO Rides',text:'1 Tap me TOTO Book karo!',url:location.href}); }else{ navigator.clipboard.writeText(location.href).then(()=>toast('📋 Link copied!')); } }
 
-// PWA Install
-window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt=e; document.getElementById('installBanner').classList.add('show'); });
-function installApp(){ if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(r=>{ if(r.outcome==='accepted') toast('🎉 Installed!'); document.getElementById('installBanner').style.display='none'; deferredPrompt=null; }); }else{ toast('📲 Browser menu > Add to Home Screen'); } }
+function goLocate(){
+  if(!navigator.geolocation||!map)return;
+  navigator.geolocation.getCurrentPosition(function(p){
+    map.setView([p.coords.latitude,p.coords.longitude],15);
+    setFrom(p.coords.latitude,p.coords.longitude);
+  },function(){toast('⚠️ GPS error')},{enableHighAccuracy:true,timeout:10000});
+}
 
-// Auto init
-document.addEventListener('DOMContentLoaded', ()=>{
-  initQuickCities();
+function setFrom(lat,lng){
+  if(fromMk)map.removeLayer(fromMk);
+  fromLL={lat:lat,lng:lng};
+  fromMk=L.marker([lat,lng],{icon:L.divIcon({html:'<div style="width:24px;height:24px;background:#10b981;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.2)"></div>',iconSize:[24,24],iconAnchor:[12,24]})}).addTo(map);
+  document.getElementById('fromIn').value=lat.toFixed(4)+','+lng.toFixed(4);
+  toast('✅ Pickup set');
+  if(toLL)doRoute();
+}
+
+function setTo(lat,lng){
+  if(toMk)map.removeLayer(toMk);
+  toLL={lat:lat,lng:lng};
+  toMk=L.marker([lat,lng],{icon:L.divIcon({html:'<div style="width:24px;height:24px;background:#ef4444;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.2)"></div>',iconSize:[24,24],iconAnchor:[12,24]})}).addTo(map);
+  document.getElementById('toIn').value=lat.toFixed(4)+','+lng.toFixed(4);
+  toast('✅ Drop set');
+  if(fromLL)doRoute();
+}
+
+function doRoute(){
+  if(!fromLL||!toLL)return;
+  toast('🛣️ Route...');
+  fetch('https://router.project-osrm.org/route/v1/driving/'+fromLL.lng+','+fromLL.lat+';'+toLL.lng+','+toLL.lat+'?overview=full&geometries=geojson')
+  .then(function(r){return r.json()}).then(function(d){
+    if(d.code==='Ok'&&d.routes&&d.routes[0]){
+      var r=d.routes[0],coords=r.geometry.coordinates.map(function(c){return[c[1],c[0]]});
+      var km=(r.distance/1000).toFixed(1),fare=Math.round(15+km*8);
+      if(routeLn)map.removeLayer(routeLn);
+      routeLn=L.polyline(coords,{color:'#0ea5e9',weight:5}).addTo(map);
+      map.fitBounds(routeLn.getBounds(),{padding:[40,40]});
+      document.getElementById('fareBox').style.display='block';
+      document.getElementById('fareVal').textContent='₹'+fare;
+      document.getElementById('fareNote').style.display='block';
+      document.getElementById('sharedBox').style.display='block';
+      document.getElementById('sh1').textContent='₹'+fare;
+      document.getElementById('sh2').textContent='₹'+Math.round(fare*.65);
+      document.getElementById('nearBox').style.display='flex';
+    }
+  }).catch(function(){});
+}
+
+// ===== DRIVERS =====
+function loadDrivers(){
+  if(!city||!map)return;
+  drvMks.forEach(function(m){try{map.removeLayer(m)}catch(e){}});drvMks=[];
+  var drivers=[];
+  (DEMOS[city.id]||[]).forEach(function(d){drivers.push(d)});
+  if(fb){
+    db.ref('toto_drivers').once('value',function(snap){
+      if(snap.exists()){
+        snap.forEach(function(ch){
+          var d=ch.val();
+          if(d.online&&d.city===city.id){
+            var ex=false;
+            for(var i=0;i<drivers.length;i++)if(drivers[i].num===d.number){ex=true;break}
+            if(!ex)drivers.push({n:d.name,t:d.vehicle,num:d.number,r:d.rating||4.8,rides:0,lat:d.lat||city.lat,lng:d.lng||city.lng,area:d.area||'Local',photo:d.photo||''});
+          }
+        });
+      }
+      renderDrv(drivers);
+    });
+  } else renderDrv(drivers);
+}
+
+function renderDrv(drivers){
+  var icons={auto:'🛺',bike:'🏍️',car:'🚗'};
+  drvMks.forEach(function(m){try{map.removeLayer(m)}catch(e){}});drvMks=[];
+  drivers.forEach(function(d){
+    var jl=d.lat+(Math.random()-.5)*.001,jg=d.lng+(Math.random()-.5)*.001;
+    var mk=L.marker([jl,jg],{icon:L.divIcon({html:'<div style="width:28px;height:28px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:14px">'+(icons[d.t]||'🛺')+'</div>',iconSize:[28,28],iconAnchor:[14,14]}),title:d.n}).addTo(map);
+    drvMks.push(mk);
+  });
+  document.getElementById('nearCnt').textContent=drivers.length;
+  document.getElementById('nearBox').style.display='flex';
+  var list=document.getElementById('drvList');
+  if(!drivers.length){list.innerHTML='<div class="card" style="text-align:center">कोई driver नहीं</div>';return}
+  list.innerHTML=drivers.map(function(d){
+    var ph=d.photo?'<img src="'+d.photo+'">':(icons[d.t]||'🛺');
+    return '<div class="drv-card" onclick="doChat(\''+d.n+'\',\''+d.t+'\',\''+d.num+'\')"><div class="drv-icon">'+ph+'</div><div class="drv-info"><div class="drv-name">'+d.n+'</div><div class="drv-area">📍 '+d.area+'</div><div class="drv-meta"><span class="drv-badge">'+d.num+'</span><span class="drv-star">★ '+d.r+'</span></div></div></div>';
+  }).join('');
+}
+
+// ===== BOOKING =====
+function bookRide(){
+  if(!fromLL||!toLL){toast('⚠️ Pickup और Drop set करो');return}
+  var fare=document.getElementById('fareVal').textContent;
+  var b={id:'BK'+Date.now(),from:document.getElementById('fromIn').value,to:document.getElementById('toIn').value,fromLat:fromLL.lat,fromLng:fromLL.lng,toLat:toLL.lat,toLng:toLL.lng,fare:fare,status:'pending',city:city.id,cityName:city.name,time:new Date().toISOString()};
+  if(fb){
+    db.ref('toto_bookings/'+b.id).set(b).then(function(){toast('✅ Booking sent!');showBookSt(b.id)}).catch(function(){toast('⚠️ Error')});
+  } else {toast('✅ Booking sent!');showBookSt(b.id)}
+}
+
+function showBookSt(bid){
+  var el=document.getElementById('bookSt');el.style.display='block';
+  el.innerHTML='<div class="card" style="text-align:center;border:2px solid #f59e0b;padding:14px"><div style="font-size:28px">⏳</div><div style="font-weight:800;color:#f59e0b">Booking Sent!</div><div style="font-size:11px;color:#64748b">Driver को notification गया</div></div>';
+  if(fb){
+    db.ref('toto_bookings/'+bid).on('value',function(snap){
+      if(!snap.exists())return;var b=snap.val();
+      if(b.status==='accepted'){
+        var fh=b.driverFare?'<div style="margin-top:6px;padding:8px;background:#fffbeb;border:1px solid #fbbf24;border-radius:8px"><div style="font-size:9px;color:#92400e">💰 Driver Fare</div><div style="font-size:20px;font-weight:900;color:#f59e0b">'+b.driverFare+'</div></div>':'';
+        var ph=b.driverPhoto?'<img src="'+b.driverPhoto+'" style="width:50px;height:50px;border-radius:50%;object-fit:cover;border:2px solid #10b981;margin:6px auto;display:block">':'';
+        el.innerHTML='<div class="card" style="text-align:center;border:2px solid #10b981;background:#ecfdf5;padding:14px"><div style="font-size:36px">✅</div><div style="font-weight:800;color:#059669">Accepted!</div>'+ph+'<div style="font-weight:700">'+(b.driverName||'Driver')+'</div><div style="font-size:11px;color:#64748b">📞 '+(b.driverPhone||'')+'</div>'+fh+'</div>';
+        toast('✅ Accepted!');
+        doTrack(bid);
+      } else if(b.status==='rejected'){
+        el.innerHTML='<div class="card" style="text-align:center;border:2px solid #ef4444;background:#fef2f2;padding:14px"><div style="font-size:36px">❌</div><div style="font-weight:800;color:#ef4444">Rejected</div><button class="btn btn-b" style="margin-top:6px" onclick="document.getElementById(\'bookSt\').style.display=\'none\'">🔄 Retry</button></div>';
+      }
+    });
+  }
+}
+
+function doTrack(bid){
+  if(!fb||!map)return;
+  db.ref('toto_bookings/'+bid).on('value',function(snap){
+    if(!snap.exists())return;var b=snap.val();
+    if(b.driverLat&&b.driverLng){
+      if(trackMk)map.removeLayer(trackMk);
+      var v=b.driverVehicle==='bike'?'🏍️':b.driverVehicle==='car'?'🚗':'🛺';
+      trackMk=L.marker([b.driverLat,b.driverLng],{icon:L.divIcon({html:'<div style="width:32px;height:32px;background:#10b981;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:16px">'+v+'</div>',iconSize:[32,32],iconAnchor:[16,16]}),title:b.driverName||'Driver'}).addTo(map);
+      map.setView([b.driverLat,b.driverLng],15);
+    }
+  });
+}
+
+// ===== DRIVER PANEL =====
+function checkDrv(){
+  try{drv=JSON.parse(localStorage.getItem('totoDrv'))}catch(e){}
+  if(drv&&drv.city===(city?city.id:'')){
+    document.getElementById('drvReg').style.display='none';
+    document.getElementById('drvDash').style.display='block';
+    document.getElementById('dashName').textContent=drv.name||'-';
+    document.getElementById('dashVeh').textContent=(drv.vehicle||'')+' • '+(drv.number||'');
+    document.getElementById('dashCity').textContent=city.name;
+    if(drv.photo)document.getElementById('dashPhoto').innerHTML='<img src="'+drv.photo+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
+    if(drv.online){document.getElementById('onBtn').textContent='🔴 Go Offline';document.getElementById('onBtn').className='btn btn-r';document.getElementById('onSt').textContent='🟢 Online';document.getElementById('onSt').style.color='#059669';if(fb)loadDrvBooks()}
+    document.getElementById('drvLink').textContent=location.origin+location.pathname+'?city='+(drv.city||'');
+  }
+}
+
+function doPhoto(input){
+  if(input.files&&input.files[0]){
+    var r=new FileReader();
+    r.onload=function(e){photo=e.target.result;document.getElementById('photoBox').innerHTML='<img src="'+photo+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';document.getElementById('photoBox').style.border='3px solid #10b981'};
+    r.readAsDataURL(input.files[0]);
+  }
+}
+
+function doRegister(){
+  var name=document.getElementById('dName').value.trim();
+  var phone=document.getElementById('dPhone').value.trim();
+  var veh=document.getElementById('dVeh').value;
+  var num=document.getElementById('dNum').value.trim();
+  if(!name||phone.length<10||!num){toast('⚠️ सब fields भरें');return}
+  drv={name:name,phone:phone,city:city.id,cityName:city.name,vehicle:veh,number:num,rating:4.8,rides:0,earnings:0,online:false,photo:photo};
+  localStorage.setItem('totoDrv',JSON.stringify(drv));
+  if(fb)db.ref('toto_drivers/'+phone).set({name:name,phone:phone,city:city.id,cityName:city.name,vehicle:veh,number:num,rating:4.8,rides:0,online:false,lat:city.lat,lng:city.lng,photo:photo,time:Date.now()});
+  document.getElementById('drvReg').style.display='none';
+  document.getElementById('drvDash').style.display='block';
+  document.getElementById('dashName').textContent=name;
+  document.getElementById('dashVeh').textContent=veh+' • '+num;
+  document.getElementById('dashCity').textContent=city.name;
+  if(photo)document.getElementById('dashPhoto').innerHTML='<img src="'+photo+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
+  document.getElementById('drvLink').textContent=location.origin+location.pathname+'?city='+city.id;
+  toast('🎉 Registered!');
+}
+
+function doToggle(){
+  if(!drv)return;
+  drv.online=!drv.online;
+  localStorage.setItem('totoDrv',JSON.stringify(drv));
+  if(fb)db.ref('toto_drivers/'+drv.phone+'/online').set(drv.online);
+  if(drv.online){document.getElementById('onBtn').textContent='🔴 Go Offline';document.getElementById('onBtn').className='btn btn-r';document.getElementById('onSt').textContent='🟢 Online';document.getElementById('onSt').style.color='#059669';toast('🟢 Online!');if(fb)loadDrvBooks()}
+  else{document.getElementById('onBtn').textContent='🟢 Go Online';document.getElementById('onBtn').className='btn btn-g';document.getElementById('onSt').textContent='🔴 Offline';document.getElementById('onSt').style.color='#dc2626';toast('🔴 Offline')}
+}
+
+function doEditCity(){document.getElementById('editForm').style.display='block';document.getElementById('editIn').value=city.name;document.getElementById('editIn').focus()}
+function doSaveCity(){var n=document.getElementById('editIn').value.trim();if(!n)return;city.name=n;document.getElementById('cityBadge').textContent='📍 '+n;document.getElementById('dashCity').textContent=n;document.getElementById('editForm').style.display='none';toast('✅ '+n)}
+
+function doDrvShare(){window.open('https://wa.me/?text='+encodeURIComponent('🛺 TOTO '+city.name+'\n\n👉 '+document.getElementById('drvLink').textContent),'_blank')}
+
+// ===== DRIVER BOOKINGS =====
+function loadDrvBooks(){
+  if(!fb)return;
+  db.ref('toto_bookings').orderByChild('status').equalTo('pending').once('value',function(snap){
+    var bks=[];snap.forEach(function(ch){bks.push(ch.val())});
+    renderDrvBooks(bks);
+  });
+}
+
+function renderDrvBooks(bks){
+  var el=document.getElementById('drvBooks');
+  if(!bks||!bks.length){el.innerHTML='<div class="card" style="text-align:center;padding:14px"><div style="font-size:24px">📋</div><div style="font-size:12px">कोई booking नहीं</div></div>';return}
+  el.innerHTML=bks.map(function(b){
+    return '<div class="card" style="border-left:4px solid #f59e0b"><div style="display:flex;justify-content:space-between"><div style="font-weight:800;color:#f59e0b;font-size:11px">🔔 NEW</div><div style="font-size:9px;color:#64748b">'+new Date(b.time).toLocaleTimeString('hi-IN')+'</div></div><div style="font-size:11px">📍 '+b.from+'</div><div style="font-size:11px;margin-bottom:4px">🏁 '+b.to+'</div><div style="font-size:11px;color:#64748b">PC: <strong>'+b.fare+'</strong></div><div style="background:#fffbeb;border:1px solid #fbbf24;border-radius:6px;padding:6px;margin:6px 0"><div style="font-size:9px;font-weight:700;color:#92400e">💰 अपना किराया:</div><input type="number" id="df_'+b.id+'" style="width:100%;padding:6px;border:1px solid #fbbf24;border-radius:6px;font-size:13px;font-weight:700;font-family:inherit;color:#92400e" value="'+b.fare.replace('₹','')+'"></div><div style="display:flex;gap:4px"><button class="btn btn-g" style="flex:1;justify-content:center;font-size:11px" onclick="doAccept(\''+b.id+'\')">✅ Accept</button><button class="btn btn-r" style="flex:1;justify-content:center;font-size:11px" onclick="doReject(\''+b.id+'\')">❌ Reject</button></div></div>';
+  }).join('');
+}
+
+function doAccept(bid){
+  if(!fb){toast('⚠️ Firebase required');return}
+  var fi=document.getElementById('df_'+bid);
+  var fare=fi?'₹'+fi.value:'₹0';
+  var lat=city.lat,lng=city.lng;
+  function save(lat,lng){
+    db.ref('toto_bookings/'+bid).update({status:'accepted',driverName:drv.name,driverPhone:drv.phone,driverVehicle:drv.vehicle,driverFare:fare,driverPhoto:drv.photo||'',driverLat:lat,driverLng:lng}).then(function(){
+      toast('✅ Accepted!');
+      doLiveLoc(bid);
+      document.getElementById('drvBooks').innerHTML='<div class="card" style="text-align:center;border:2px solid #10b981;background:#ecfdf5;padding:12px"><div style="font-size:24px">✅</div><div style="font-weight:700;color:#059669">Accepted!</div></div>';
+    });
+  }
+  if(navigator.geolocation){navigator.geolocation.getCurrentPosition(function(p){save(p.coords.latitude,p.coords.longitude)},function(){save(lat,lng)},{enableHighAccuracy:true,timeout:5000})}else{save(lat,lng)}
+}
+
+function doLiveLoc(bid){
+  if(!navigator.geolocation||!fb)return;
+  setInterval(function(){
+    navigator.geolocation.getCurrentPosition(function(p){
+      db.ref('toto_bookings/'+bid).update({driverLat:p.coords.latitude,driverLng:p.coords.longitude});
+      if(drv)db.ref('toto_drivers/'+drv.phone).update({lat:p.coords.latitude,lng:p.coords.longitude});
+    },function(){},{enableHighAccuracy:true,timeout:10000});
+  },5000);
+}
+
+function doReject(bid){if(!fb)return;db.ref('toto_bookings/'+bid).update({status:'rejected'}).then(function(){toast('❌ Rejected');loadDrvBooks()})}
+
+// ===== CHAT =====
+function doChat(n,t,num){document.getElementById('chNm').textContent=n;document.getElementById('chAv').textContent=t==='bike'?'🏍️':t==='car'?'🚗':'🛺';document.getElementById('chMsgs').innerHTML='<div class="chat-b recv">🙏 मैं '+n+' ('+num+'). कहाँ जाना है?</div>';document.getElementById('chMsgs').scrollIntoView({behavior:'smooth'});toast('💬 '+n)}
+function doSend(){var inp=document.getElementById('chIn'),msg=inp.value.trim();if(!msg)return;addB(msg,'sent');inp.value='';setTimeout(function(){var r=['🙏 ठीक है!','✅ 5 मिनट!','📍 आ रहा हूँ','💰 '+document.getElementById('fareVal').textContent+' होगा','⏰ 2 मिनट!'];addB(r[Math.floor(Math.random()*r.length)],'recv')},1500)}
+function addB(t,tp){var c=document.getElementById('chMsgs'),el=document.createElement('div');el.className='chat-b '+(tp==='sent'?'sent':'recv');el.textContent=t;c.appendChild(el);c.scrollTop=c.scrollHeight}
+
+// ===== SHARE =====
+function doShareWA(){window.open('https://wa.me/?text='+encodeURIComponent('🛺 TOTO - '+city.name+'\n\n👉 '+document.getElementById('shareLink').textContent+'\n\n₹8/km से!')),'_blank')}
+function doCopy(){navigator.clipboard.writeText(document.getElementById('shareLink').textContent).then(function(){toast('📋 Copied!')})}
+
+// ===== TABS - FIXED =====
+function switchTab(t, el){
   try{
-    const saved=localStorage.getItem('totoCity')||'ramgarh';
-    const p=new URLSearchParams(location.search);
-    const q=p.get('city')||saved;
-    setTimeout(()=>{ if(CITIES[q]) pickCity(q); else pickCity('ramgarh'); goLocate(); }, 600);
-  }catch{ pickCity('ramgarh'); }
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+    document.querySelectorAll('.tab').forEach(function(e){e.classList.remove('active')});
+    if(el) el.classList.add('active');
+    else if(event && event.currentTarget) event.currentTarget.classList.add('active');
+    document.getElementById('tabCust').style.display=t==='cust'?'block':'none';
+    document.getElementById('tabDrv').style.display=t==='drv'?'block':'none';
+    if(t==='cust' && typeof map!=='undefined' && map){ setTimeout(()=>{ try{ map.invalidateSize(); }catch{} }, 250); }
+    if(t==='drv'){ try{ checkDrv(); }catch(e){} }
+  }catch(e){ toast('Tab error: '+e.message); }
+}
+
+// ===== QR =====
+function makeQR(){var url=location.href;document.getElementById('qrImg').src='https://api.qrserver.com/v1/create-qr-code/?size=130x130&data='+encodeURIComponent(url);document.getElementById('qrUrl').textContent=url}
+
+// ===== INSTALL + SHORT DOMAIN + EASY USE =====
+var dp=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e; var b=document.getElementById('installBanner'); if(b) b.style.display='flex';});
+function doInstall(){if(dp){dp.prompt();dp.userChoice.then(function(r){if(r.outcome==='accepted')toast('🎉 Installed! App ban gaya!'); var b=document.getElementById('installBanner'); if(b) b.style.display='none'; dp=null})}else{var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);if(isIOS)toast('📱 Safari → Share → Add to Home Screen');else toast('📱 Chrome menu → 3 dot → Install app');}}
+function installApp(){ doInstall(); }
+function shareApp(){
+  var url=location.href;
+  if(navigator.share){ navigator.share({title:'TOTO Rides - 1 Tap me TOTO',text:'🛺 Ramgarh Ranchi me 1 Tap me TOTO Book karo!',url:url}).catch(()=>{}); }
+  else{ navigator.clipboard.writeText(url).then(()=>toast('📋 Link copied! Share karo')); }
+}
+function retryMap(){ if(city) initMap(city.lat,city.lng); else toast('Pehle city chuno'); }
+
+document.addEventListener('DOMContentLoaded',function(){
+  makeQR();
+  // Auto city + Easy use
+  try{
+    var saved=localStorage.getItem('totoCity');
+    var p=new URLSearchParams(location.search);
+    var tab=p.get('tab');
+    var qCity=p.get('city')||saved||'ramgarh';
+    if(CITIES[qCity]){
+      setTimeout(function(){ pickCity(qCity); if(tab==='driver'){ setTimeout(function(){ switchTab('drv', document.querySelectorAll('.tab')[1]); }, 800); } }, 700);
+    }else{
+      setTimeout(function(){ pickCity('ramgarh'); }, 700);
+    }
+  }catch(e){}
+  window.addEventListener('error', function(ev){ console.log('ERR: '+ev.message); });
 });
+
+if('serviceWorker' in navigator)try{navigator.serviceWorker.register('/sw.js').catch(function(){})}catch(e){}
+
+console.log('TOTO FULL Advanced Loaded - Short Domain Ready - Easy Install Ready');
+console.log('Short Domain Guide: 4everland Domains > Add Custom Domain > totoride.in - Then CNAME to ipfs path');
 </script>
 </body>
 </html>

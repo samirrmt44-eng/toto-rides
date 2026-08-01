@@ -1,7 +1,7 @@
 {
-  "name": "TOTO Rides - Ramgarh Ranchi Hazaribagh",
+  "name": "TOTO Rides FULL - Driver + Customer - Ramgarh Ranchi",
   "short_name": "TOTO",
-  "description": "🛺 1-Click TOTO Book - Ramgarh, Ranchi, Hazaribagh - Auto, Bike, Car",
+  "description": "🛺 TOTO Rides FULL - Driver Registration, Login, Booking, Live Tracking - 1 Tap Install, Short Domain Ready",
   "start_url": "/?city=ramgarh&utm_source=pwa",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -9,7 +9,7 @@
   "orientation": "portrait",
   "scope": "/",
   "lang": "hi",
-  "categories": ["transportation", "travel", "navigation"],
+  "categories": ["transportation", "travel"],
   "icons": [
     {
       "src": "icon-192.png",
@@ -28,15 +28,14 @@
     {
       "name": "Book TOTO - Ramgarh",
       "short_name": "Ramgarh",
-      "description": "Ramgarh me TOTO book karo",
       "url": "/?city=ramgarh",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+      "icons": [{"src": "icon-192.png", "sizes": "192x192"}]
     },
     {
-      "name": "Book TOTO - Ranchi",
-      "short_name": "Ranchi",
-      "url": "/?city=ranchi",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+      "name": "Driver Login",
+      "short_name": "Driver",
+      "url": "/?tab=driver",
+      "icons": [{"src": "icon-192.png", "sizes": "192x192"}]
     }
   ]
 }
