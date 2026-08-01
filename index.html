@@ -6,9 +6,14 @@
 <title>TOTO Rides - FULL Advanced | Driver Login + Booking 100%</title>
 <meta name="theme-color" content="#0ea5e9">
 <meta name="description" content="TOTO Rides FULL - Driver Registration, Login, Dashboard, Customer Booking, Live Tracking - Easy Install, Short Domain">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TOTO">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="TOTO">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -635,15 +640,56 @@ function switchTab(t, el){
 // ===== QR =====
 function makeQR(){var url=location.href;document.getElementById('qrImg').src='https://api.qrserver.com/v1/create-qr-code/?size=130x130&data='+encodeURIComponent(url);document.getElementById('qrUrl').textContent=url}
 
-// ===== INSTALL + SHORT DOMAIN + EASY USE =====
-var dp=null;
-window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e; var b=document.getElementById('installBanner'); if(b) b.style.display='flex';});
-function doInstall(){if(dp){dp.prompt();dp.userChoice.then(function(r){if(r.outcome==='accepted')toast('🎉 Installed! App ban gaya!'); var b=document.getElementById('installBanner'); if(b) b.style.display='none'; dp=null})}else{var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);if(isIOS)toast('📱 Safari → Share → Add to Home Screen');else toast('📱 Chrome menu → 3 dot → Install app');}}
+// ===== INSTALL + SHORT DOMAIN + EASY USE - FIXED FOR MOBILE =====
+var deferredPrompt=null;
+var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+window.addEventListener('beforeinstallprompt', function(e){
+  console.log('[PWA] beforeinstallprompt fired');
+  e.preventDefault();
+  deferredPrompt=e;
+  var b=document.getElementById('installBanner');
+  if(b){ b.style.display='flex'; b.innerHTML='<div><b>📲 TOTO Install Karo - App Banega!</b><div style="font-size:11px;opacity:.9">1-click me home screen par add hoga</div></div><button style="background:#fff;color:#0ea5e9;border:none;padding:8px 14px;border-radius:10px;font-weight:800;font-size:12px" onclick="installApp()">📲 Install</button>'; }
+});
+
+setTimeout(function(){
+  var banner=document.getElementById('installBanner');
+  if(!banner) return;
+  if(banner.style.display==='none' || banner.style.display===''){
+    if(isIOS){
+      banner.innerHTML='<div><b>📲 iPhone me Install Karo</b><div style="font-size:11px;opacity:.9">Safari me Share → Add to Home Screen dabao</div></div><button style="background:#fff;color:#0ea5e9;border:none;padding:8px 14px;border-radius:10px;font-weight:800" onclick="this.parentElement.style.display=\'none\'">OK</button>';
+      banner.style.display='flex';
+    }else{
+      banner.innerHTML='<div><b>📲 TOTO App Install Karo</b><div style="font-size:11px;opacity:.9">Chrome menu (3 dot) → Install App / Add to Home Screen</div></div><button style="background:#fff;color:#0ea5e9;border:none;padding:8px 14px;border-radius:10px;font-weight:800" onclick="installApp()">📲 Install</button>';
+      banner.style.display='flex';
+    }
+  }
+}, 4000);
+
+function doInstall(){
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(function(choiceResult){
+      if(choiceResult.outcome==='accepted'){ toast('🎉 Installed! Home screen par dekho!'); }
+      var b=document.getElementById('installBanner'); if(b) b.style.display='none';
+      deferredPrompt=null;
+    });
+  }else{
+    if(isIOS){
+      toast('📱 Safari: Share → Add to Home Screen');
+      alert('iPhone me TOTO Install:\n1. Safari me Share button dabao\n2. Add to Home Screen select karo\n3. Add dabao');
+    }else{
+      toast('📱 Chrome: 3 dot Menu → Install App');
+      var b=document.getElementById('installBanner');
+      if(b){ b.innerHTML='<div><b>📲 Manual Install</b><div style="font-size:11px">Chrome: 3 dot → Install App</div></div><button style="background:#fff;color:#0ea5e9;border:none;padding:8px 14px;border-radius:10px" onclick="this.parentElement.style.display=\'none\'">OK</button>'; b.style.display='flex'; }
+    }
+  }
+}
 function installApp(){ doInstall(); }
 function shareApp(){
   var url=location.href;
-  if(navigator.share){ navigator.share({title:'TOTO Rides - 1 Tap me TOTO',text:'🛺 Ramgarh Ranchi me 1 Tap me TOTO Book karo!',url:url}).catch(()=>{}); }
-  else{ navigator.clipboard.writeText(url).then(()=>toast('📋 Link copied! Share karo')); }
+  if(navigator.share){ navigator.share({title:'TOTO Rides',text:'🛺 1 Tap me TOTO Book karo!',url:url}).catch(()=>{}); }
+  else{ navigator.clipboard.writeText(url).then(()=>toast('📋 Link copied!')); }
 }
 function retryMap(){ if(city) initMap(city.lat,city.lng); else toast('Pehle city chuno'); }
 
@@ -664,7 +710,7 @@ document.addEventListener('DOMContentLoaded',function(){
   window.addEventListener('error', function(ev){ console.log('ERR: '+ev.message); });
 });
 
-if('serviceWorker' in navigator)try{navigator.serviceWorker.register('/sw.js').catch(function(){})}catch(e){}
+if('serviceWorker' in navigator){ try{ navigator.serviceWorker.register('./sw.js').then(reg=>console.log('SW registered',reg.scope)).catch(e=>console.log('SW fail',e)); }catch(e){} }
 
 console.log('TOTO FULL Advanced Loaded - Short Domain Ready - Easy Install Ready');
 console.log('Short Domain Guide: 4everland Domains > Add Custom Domain > totoride.in - Then CNAME to ipfs path');

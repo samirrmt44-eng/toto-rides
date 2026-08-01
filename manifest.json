@@ -1,41 +1,58 @@
 {
-  "name": "TOTO Rides FULL - Driver + Customer - Ramgarh Ranchi",
+  "name": "TOTO Rides - 1 Tap Auto Book",
   "short_name": "TOTO",
-  "description": "🛺 TOTO Rides FULL - Driver Registration, Login, Booking, Live Tracking - 1 Tap Install, Short Domain Ready",
-  "start_url": "/?city=ramgarh&utm_source=pwa",
+  "description": "🛺 TOTO Rides - Ramgarh Ranchi - 1 Tap me Auto Book, Driver Login, Live Track",
+  "start_url": "./?city=ramgarh&utm_source=pwa",
+  "scope": "./",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
   "background_color": "#ffffff",
   "theme_color": "#0ea5e9",
   "orientation": "portrait",
-  "scope": "/",
   "lang": "hi",
-  "categories": ["transportation", "travel"],
+  "dir": "ltr",
+  "categories": ["transportation", "travel", "navigation"],
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any maskable"
     },
     {
-      "src": "icon-512.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any maskable"
     }
   ],
   "shortcuts": [
     {
-      "name": "Book TOTO - Ramgarh",
+      "name": "📍 Ramgarh Book",
       "short_name": "Ramgarh",
-      "url": "/?city=ramgarh",
-      "icons": [{"src": "icon-192.png", "sizes": "192x192"}]
+      "description": "Ramgarh me TOTO book karo",
+      "url": "./?city=ramgarh",
+      "icons": [{ "src": "./icon-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Driver Login",
+      "name": "🏙️ Ranchi Book",
+      "short_name": "Ranchi",
+      "url": "./?city=ranchi",
+      "icons": [{ "src": "./icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "🛺 Driver Login",
       "short_name": "Driver",
-      "url": "/?tab=driver",
-      "icons": [{"src": "icon-192.png", "sizes": "192x192"}]
+      "url": "./?tab=driver",
+      "icons": [{ "src": "./icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow"
     }
   ]
 }
