@@ -1,0 +1,31 @@
+Short domain guide:
+SHORT DOMAIN KAISE BANAYE:
+
+1. 4EVERLAND me:
+   - Project > Domains tab > Add Custom Domain
+   - Free me aapko milega: toto-xxxx.4everland.app (already short)
+   - Custom domain kharido: toto-jharkhand.com ya totoride.in (Rs 300/year Hostinger)
+   - DNS me CNAME add karo jo 4everland batayega
+
+2. Fleek me:
+   - Fleek automatically deta hai: your-site.on.fleek.co (chota)
+   - Custom: fleek.co > Domains > Add Domain > toto-rides.in
+
+3. ENS Domain (Web3 permanent):
+   - app.ens.domains par jao
+   - toto-jharkhand.eth kharido (~$10/year)
+   - IPFS hash se link karo - lifetime Web3 domain
+
+4. URL Shortener (Instant):
+   - tinyurl.com ya is.gd par jao
+   - Apni lambi IPFS link paste karo
+   - Short link banao: tinyurl.com/toto-ramgarh
+
+RECOMMENDED SHORT:
+- toto-rides.4everland.app (rename project to toto-rides in 4everland settings)
+- toto.4ever.app (if available)
+- totorides.in (buy)
+
+EASY INSTALL:
+- User ko bolo: Site kholo -> Chrome me 3 dot -> Add to Home Screen
+- Ya hamara Install banner auto ayega - 1 click
