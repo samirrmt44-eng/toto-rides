@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Driver Approval - Main Admin - TOTO</title>
+<meta name="theme-color" content="#f59e0b">
+<link rel="icon" href="icon-192.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui,sans-serif;background:#0f172a;color:#f1f5f9}
+.top{background:#1e293b;padding:14px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99;border-bottom:1px solid #334155}
+.btn{padding:10px 16px;border:none;border-radius:10px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:13px} .btn-g{background:#10b981;color:#fff}.btn-r{background:#ef4444;color:#fff}.btn-y{background:#f59e0b;color:#fff}.btn-w{background:#334155;color:#f1f5f9;border:1px solid #475569} .btn-full{width:100%;justify-content:center}
+.wrap{max-width:600px;margin:0 auto;padding:12px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:16px;margin:10px 0}
+.badge{padding:4px 10px;border-radius:8px;font-size:11px;font-weight:800} .b-pending{background:rgba(245,158,11,.2);color:#fbbf24} .b-approved{background:rgba(16,185,129,.2);color:#34d399}
+.inp{width:100%;padding:10px;border:1px solid #334155;border-radius:10px;background:#0f172a;color:#f1f5f9;margin-top:4px}
+#toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#f8fafc;color:#0f172a;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:800;z-index:9999;opacity:0;transition:.3s;pointer-events:none}#toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="top"><h1 style="color:#f59e0b">🔐 Driver Approval Panel</h1><span style="font-size:11px;background:#334155;padding:4px 10px;border-radius:20px">Main Admin Only</span></div>
+<div id="toast"></div>
+
+<div class="wrap">
+  <div id="loginBox" class="card" style="text-align:center;border:2px solid #f59e0b">
+    <div style="font-size:40px">🔐</div><h2 style="font-weight:900;margin-top:8px">Admin Login</h2>
+    <p style="font-size:12px;color:#94a3b8;margin-top:4px">Sirf aap aur aapke banaye Approver hi approve kar sakte hain</p>
+    <div style="margin-top:14px;text-align:left"><label style="font-size:11px">Username</label><input id="aUser" class="inp" value="admin" placeholder="admin"></div>
+    <div style="margin-top:8px;text-align:left"><label style="font-size:11px">Password</label><input id="aPass" type="password" class="inp" value="admin123" placeholder="admin123"></div>
+    <button class="btn btn-y btn-full" style="margin-top:12px" onclick="login()">🔓 Login - Approval Panel Kholo</button>
+    <p style="font-size:10px;color:#64748b;margin-top:8px">Default: admin / admin123<br>Aap isko badal sakte ho admin.html > Settings me</p>
+  </div>
+
+  <div id="mainBox" style="display:none">
+    <div style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-radius:18px;padding:16px;text-align:center">
+      <h3 style="font-weight:900">👥 Driver Approval - Aap Main Admin Ho</h3>
+      <p style="font-size:11px;opacity:.9;margin-top:4px">Driver register karega → Yahan pending me ayega → Aap Approve karo → Tabhi wo Online ja payega. Customer ko approval nahi chahiye.</p>
+      <div style="margin-top:10px;display:flex;gap:8px;justify-content:center"><span style="background:rgba(255,255,255,.2);padding:4px 10px;border-radius:20px;font-size:11px">📍 Main Admin: Aap</span><span style="background:rgba(255,255,255,.2);padding:4px 10px;border-radius:20px;font-size:11px" id="approverCount">0 Approvers</span></div>
+    </div>
+
+    <div class="card" style="border:2px dashed #f59e0b">
+      <h4 style="font-weight:900">➕ Kisi Ko Approver Banao - Wo Bhi Approve Kar Sakega</h4>
+      <p style="font-size:11px;color:#94a3b8;margin-top:4px">Jaise aap kisi bharosemand driver ko approval ka power dena chahte ho, to uska phone yahan dalo - wo bhi drivers ko approve kar payega. Aap main admin rahoge.</p>
+      <div style="display:flex;gap:6px;margin-top:10px"><input id="newApprover" class="inp" placeholder="Approver ka phone - 10 digit" style="flex:1"><button class="btn btn-y" onclick="addApprover()">+ Add Approver</button></div>
+      <div id="approversList" style="margin-top:10px"></div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin:14px 0">
+      <button class="btn btn-w" style="flex:1" onclick="loadPending()">🔄 Refresh Pending</button>
+      <button class="btn btn-w" style="flex:1" onclick="clearAll()">🗑️ Clear All Pending</button>
+    </div>
+
+    <div id="pendingSection">
+      <h3 style="font-weight:900;margin:10px 0">⏳ Pending Approval - Naye Drivers</h3>
+      <div id="pendingList"></div>
+    </div>
+
+    <div id="approvedSection" style="margin-top:20px">
+      <h3 style="font-weight:900;margin:10px 0">✅ Approved Drivers - Online Ja Sakte Hain</h3>
+      <div id="approvedList"></div>
+    </div>
+
+    <div class="card" style="background:#0f172a;border:2px dashed #334155;margin-top:20px">
+      <h4 style="font-weight:900">📱 Customer? Unko Approval Nahi Chahiye</h4>
+      <p style="font-size:12px;color:#94a3b8;margin-top:4px">Customer app (customer.html) me koi approval nahi - Sabhi direct join kar sakte hain. Sirf Driver ke liye approval hai jaise aapne bola tha.</p>
+      <a href="customer.html" style="text-decoration:none"><button class="btn btn-w btn-full" style="margin-top:8px">👤 Customer App Dekho - No Approval</button></a>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script>
+let db=null,fb=false;
+try{firebase.initializeApp({apiKey:"AIzaSyDJdRvlWn4UNqu2JSwRayHg49qEymG55KY",authDomain:"toto-rides.firebaseapp.com",databaseURL:"https://toto-rides-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"toto-rides"});db=firebase.database();fb=true;}catch(e){}
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.className='show';setTimeout(()=>t.className='',3000);}
+
+function login(){
+  const u=document.getElementById('aUser').value.trim();
+  const p=document.getElementById('aPass').value.trim();
+  // Main admin + approvers can login
+  let approvers=[];
+  try{ approvers=JSON.parse(localStorage.getItem('totoApprovers')||'[]'); }catch{}
+  // Allow admin/admin123 OR any approver phone as username with same password? For simplicity allow admin login + approver phone login
+  if((u==='admin' && p==='admin123') || approvers.includes(u)){
+    document.getElementById('loginBox').style.display='none';
+    document.getElementById('mainBox').style.display='block';
+    toast('✅ Login Success - Main Admin');
+    loadPending();
+    loadApprovers();
+  }else{
+    // Check if entered phone is approver and password admin123
+    if(approvers.includes(u) && p==='admin123'){
+      document.getElementById('loginBox').style.display='none';
+      document.getElementById('mainBox').style.display='block';
+      toast('✅ Approver Login: '+u);
+      loadPending(); loadApprovers();
+    }else{
+      toast('❌ Wrong - admin/admin123 ya Approver Phone / admin123');
+    }
+  }
+}
+
+function loadPending(){
+  const pendingEl=document.getElementById('pendingList');
+  const approvedEl=document.getElementById('approvedList');
+  pendingEl.innerHTML='<div style="text-align:center;padding:20px;color:#94a3b8">Loading pending drivers...</div>';
+  approvedEl.innerHTML='<div style="text-align:center;padding:20px;color:#94a3b8">Loading approved...</div>';
+
+  let localPending=[];
+  let localApproved=[];
+  try{
+    localPending=JSON.parse(localStorage.getItem('totoPendingDrivers')||'[]');
+    // Filter only not approved
+    const approvedPhones=JSON.parse(localStorage.getItem('totoApprovedDrivers')||'[]');
+    localApproved=JSON.parse(localStorage.getItem('totoApprovedList')||'[]');
+    // Also from totoDrivers
+    const allDriversKeys=Object.keys(localStorage).filter(k=>k.startsWith('totoDriver_'));
+    allDriversKeys.forEach(k=>{
+      try{
+        const d=JSON.parse(localStorage.getItem(k));
+        if(d && !approvedPhones.includes(d.phone) && !d.approved) localPending.push(d);
+        if(d && (d.approved || approvedPhones.includes(d.phone))) localApproved.push(d);
+      }catch{}
+    });
+    // Deduplicate
+    const seen=new Set(); const uniq=[];
+    localPending.forEach(d=>{ if(!seen.has(d.phone)){ seen.add(d.phone); uniq.push(d); } });
+    localPending=uniq;
+  }catch(e){ console.log(e); }
+
+  // Render local pending
+  if(localPending.length===0){
+    pendingEl.innerHTML='<div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;text-align:center"><div style="font-size:32px">📭</div><p style="font-size:12px;color:#94a3b8;margin-top:6px">Koi pending driver nahi - Sab approved hain ya koi naya registration nahi</p><p style="font-size:11px;color:#64748b;margin-top:4px">Driver jab driver.html par register karega, yahan ayega</p></div>';
+  }else{
+    pendingEl.innerHTML=localPending.map(d=>`
+      <div style="background:#1e293b;border:1px solid #fbbf24;border-left:4px solid #f59e0b;border-radius:12px;padding:12px;margin:8px 0">
+        <div style="display:flex;gap:10px;align-items:center">
+          <div style="width:50px;height:50px;border-radius:50%;background:#334155;display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden">${d.photo?`<img src="${d.photo}" style="width:100%;height:100%;object-fit:cover">`:'👤'}</div>
+          <div style="flex:1">
+            <div style="font-weight:900">${d.name} <span style="font-size:10px;background:rgba(245,158,11,.2);color:#fbbf24;padding:2px 6px;border-radius:10px">PENDING</span></div>
+            <div style="font-size:11px;color:#94a3b8">📱 ${d.phone} • 🛺 ${d.vehicle||'auto'} • ${d.number||''}</div>
+            <div style="font-size:10px;color:#64748b">📍 ${d.cityName||d.city} • ${new Date(d.createdAt||Date.now()).toLocaleString('hi-IN')}</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <button class="btn btn-g" style="flex:1" onclick="approveDriver('${d.phone}')">✅ Approve - Driver Banega</button>
+          <button class="btn btn-r" style="flex:1" onclick="rejectDriver('${d.phone}')">❌ Reject</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  if(localApproved.length===0){
+    approvedEl.innerHTML='<div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;text-align:center;color:#94a3b8;font-size:12px">No approved drivers yet</div>';
+  }else{
+    approvedEl.innerHTML=localApproved.slice(0,20).map(d=>`
+      <div style="background:#1e293b;border:1px solid #10b981;border-left:4px solid #10b981;border-radius:12px;padding:10px;margin:6px 0;display:flex;justify-content:space-between;align-items:center">
+        <div><div style="font-weight:800">${d.name||d.phone}</div><div style="font-size:11px;color:#94a3b8">${d.phone} • ${d.vehicle||''} • ${d.cityName||''}</div></div>
+        <span style="background:rgba(16,185,129,.2);color:#34d399;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:800">✅ Approved</span>
+      </div>
+    `).join('');
+  }
+
+  // Firebase pending also
+  if(fb&&db){
+    db.ref('toto_pending_approvals').once('value').then(snap=>{
+      if(snap.exists()){
+        snap.forEach(ch=>{
+          const d=ch.val();
+          // Check if already approved locally
+          try{ const approvedPhones=JSON.parse(localStorage.getItem('totoApprovedDrivers')||'[]'); if(approvedPhones.includes(d.phone)) return; }catch{}
+          // Add to pending UI if not already
+          const el=document.getElementById('pendingList');
+          const exists = el.innerHTML.includes(d.phone);
+          if(!exists){
+            el.innerHTML+=`
+              <div style="background:#1e293b;border:1px solid #fbbf24;border-left:4px solid #f59e0b;border-radius:12px;padding:12px;margin:8px 0">
+                <div><b>🔥 Firebase Pending: ${d.name}</b> • ${d.phone} • ${d.cityName||d.city}</div>
+                <div style="font-size:11px;color:#94a3b8">${new Date(d.timestamp||Date.now()).toLocaleString('hi-IN')} • ${d.vehicle} • ${d.number}</div>
+                <div style="display:flex;gap:6px;margin-top:8px"><button class="btn btn-g" style="flex:1" onclick="approveDriver('${d.phone}')">✅ Approve (Firebase)</button><button class="btn btn-r" style="flex:1" onclick="rejectDriver('${d.phone}')">❌ Reject</button></div>
+              </div>
+            `;
+          }
+        });
+      }
+    });
+  }
+}
+
+function approveDriver(phone){
+  if(!phone){ toast('Phone nahi mila'); return; }
+  try{
+    // Move from pending to approved
+    let pending=JSON.parse(localStorage.getItem('totoPendingDrivers')||'[]');
+    let driver=pending.find(d=>d.phone===phone);
+    if(!driver){
+      // Try from totoDriver_{phone}
+      try{ driver=JSON.parse(localStorage.getItem('totoDriver_'+phone)||'null'); }catch{}
+    }
+    if(!driver) driver={phone, approved:true, approvedBy:'Main Admin', approvedAt:Date.now()};
+
+    // Add to approved list
+    let approvedPhones=JSON.parse(localStorage.getItem('totoApprovedDrivers')||'[]');
+    if(!approvedPhones.includes(phone)) approvedPhones.push(phone);
+    localStorage.setItem('totoApprovedDrivers', JSON.stringify(approvedPhones));
+
+    let approvedList=JSON.parse(localStorage.getItem('totoApprovedList')||'[]');
+    approvedList=approvedList.filter(d=>d.phone!==phone);
+    driver.approved=true; driver.approvedBy='Main Admin (Samir)'; driver.approvedAt=Date.now(); driver.status='approved';
+    approvedList.push(driver);
+    localStorage.setItem('totoApprovedList', JSON.stringify(approvedList));
+
+    // Update main driver storage
+    localStorage.setItem('totoDriver_'+phone, JSON.stringify(driver));
+    // If current driver is this phone (same device), also update totoDrv
+    try{ const curr=JSON.parse(localStorage.getItem('totoDrv')||'null'); if(curr && curr.phone===phone){ localStorage.setItem('totoDrv', JSON.stringify(driver)); } }catch{}
+
+    // Remove from pending
+    pending=pending.filter(d=>d.phone!==phone);
+    localStorage.setItem('totoPendingDrivers', JSON.stringify(pending));
+
+    // Firebase update
+    if(fb&&db){
+      db.ref('toto_drivers/'+phone).update({approved:true, status:'approved', approvedBy:'Main Admin', approvedAt: Date.now()}).catch(()=>{});
+      db.ref('toto_pending_approvals/'+phone).remove().catch(()=>{});
+    }
+
+    toast('✅ Approved: '+phone+' - Ab driver online ja sakta hai!');
+    loadPending();
+  }catch(e){ toast('Error: '+e.message); }
+}
+
+function rejectDriver(phone){
+  if(!phone) return;
+  if(!confirm('Reject karna hai '+phone+' ko?')) return;
+  try{
+    let pending=JSON.parse(localStorage.getItem('totoPendingDrivers')||'[]');
+    pending=pending.filter(d=>d.phone!==phone);
+    localStorage.setItem('totoPendingDrivers', JSON.stringify(pending));
+    try{ localStorage.removeItem('totoDriver_'+phone); }catch{}
+    if(fb&&db){
+      db.ref('toto_pending_approvals/'+phone).remove().catch(()=>{});
+      db.ref('toto_drivers/'+phone).remove().catch(()=>{});
+    }
+    toast('❌ Rejected: '+phone);
+    loadPending();
+  }catch(e){}
+}
+
+function addApprover(){
+  const ph=document.getElementById('newApprover').value.trim();
+  if(ph.length<10){ toast('⚠️ Sahi phone dalo'); return; }
+  try{
+    let list=JSON.parse(localStorage.getItem('totoApprovers')||'[]');
+    if(!list.includes(ph)){ list.push(ph); localStorage.setItem('totoApprovers', JSON.stringify(list)); toast('✅ Approver added: '+ph+' - Ab ye bhi approve kar sakta hai'); loadApprovers(); document.getElementById('newApprover').value=''; }
+    else toast('Already approver');
+    if(fb&&db) db.ref('toto_approvers/'+ph).set({phone:ph, addedBy:'main', addedAt:Date.now()});
+  }catch(e){}
+}
+function loadApprovers(){
+  try{
+    const list=JSON.parse(localStorage.getItem('totoApprovers')||'[]');
+    const el=document.getElementById('approversList');
+    document.getElementById('approverCount').textContent=list.length+' Approvers';
+    if(!list.length){ el.innerHTML='<div style="font-size:11px;color:#94a3b8;padding:8px;background:#0f172a;border-radius:8px">Koi additional approver nahi - Sirf aap main admin ho</div>'; return; }
+    el.innerHTML=list.map(ph=>`<div style="display:flex;justify-content:space-between;align-items:center;background:#0f172a;padding:8px 10px;border-radius:8px;margin:4px 0"><span>📱 ${ph} - Approver</span><button onclick="removeApprover('${ph}')" style="background:#ef4444;color:#fff;border:none;padding:4px 8px;border-radius:6px;font-size:10px">Remove</button></div>`).join('');
+  }catch{}
+}
+function removeApprover(ph){ try{ let list=JSON.parse(localStorage.getItem('totoApprovers')||'[]'); list=list.filter(x=>x!==ph); localStorage.setItem('totoApprovers', JSON.stringify(list)); loadApprovers(); if(fb&&db) db.ref('toto_approvers/'+ph).remove(); toast('Removed: '+ph); }catch{} }
+function clearAll(){ if(!confirm('Saare pending clear karne hain?')) return; localStorage.removeItem('totoPendingDrivers'); if(fb&&db) db.ref('toto_pending_approvals').remove(); toast('Cleared'); loadPending(); }
+
+// Auto load if already logged in
+try{ if(localStorage.getItem('totoAdmin')==='true'){ document.getElementById('loginBox').style.display='none'; document.getElementById('mainBox').style.display='block'; loadPending(); loadApprovers(); } }catch{}
+
+function adminLoginLegacy(){ login(); }
+</script>
+</body>
+</html>
