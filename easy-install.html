@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOTO Easy Install - QR Scan Karo - Customer & Driver Alag</title>
+<meta name="theme-color" content="#0ea5e9">
+<link rel="icon" href="icon-192.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui,sans-serif;background:#f0f9ff;color:#1a1a2e;text-align:center}
+.top{background:#fff;padding:14px;position:sticky;top:0;z-index:99;border-bottom:1px solid #e0f2fe}
+.wrap{max-width:560px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:20px;padding:20px;margin:16px 0;box-shadow:0 8px 30px rgba(0,0,0,.08);border:2px solid #f1f5f9}
+.qr{width:220px;height:220px;margin:0 auto;border:4px solid #fff;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,.12)}
+.btn{padding:14px 20px;border:none;border-radius:14px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center;width:100%;margin-top:10px;font-size:14px}
+.btn-b{background:#0ea5e9;color:#fff}.btn-g{background:#10b981;color:#fff}.btn-y{background:#f59e0b;color:#fff}.btn-w{background:#fff;border:1px solid #e2e8f0}
+.small{font-size:11px;color:#64748b;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="top"><h1 style="font-weight:900;color:#0ea5e9">📲 TOTO Easy Install</h1><p style="font-size:11px;color:#64748b">Scan Karo → Install Khulega → 1 Click Me App Banega</p></div>
+<div class="wrap">
+  <div style="background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#fff;border-radius:20px;padding:16px">
+    <h2 style="font-weight:900">Customer & Driver Alag Alag Install</h2><p style="font-size:12px;opacity:.9;margin-top:4px">QR Scan karo ya Link open karo - Direct Install khulega</p>
+  </div>
+
+  <div class="card" style="border-color:#10b981;background:linear-gradient(135deg,#ecfdf5,#f0fdf4)">
+    <div style="font-size:32px">👤</div><h3 style="font-weight:900;color:#065f46">Customer App - No Approval</h3><p class="small">Koi bhi join kar sakta hai - 1 Tap Booking</p>
+    <img class="qr" id="qrCustomer" src="qr-customer.png" alt="Customer QR">
+    <div style="margin-top:12px;background:#fff;padding:10px;border-radius:12px;border:1px dashed #10b981">
+      <p style="font-size:11px;font-weight:800;color:#065f46">📲 Customer Install Link:</p>
+      <p style="font-size:10px;word-break:break-all;background:#f0fdf4;padding:6px;border-radius:8px;margin-top:4px" id="linkCustomer">https://toto-rides-nadc.ipfs.4everland.app/customer.html?city=ramgarh</p>
+      <button class="btn btn-g" onclick="copyLink('customer')"><span id="copyCustomer">📋 Copy Link</span></button>
+      <a href="customer.html?city=ramgarh" style="text-decoration:none"><button class="btn btn-b" style="margin-top:8px">👤 Customer App Open - Install Yahi Se Hoga</button></a>
+    </div>
+    <p class="small">📱 Mobile me QR scan karo → Customer App khulega → Upar Install banner ayega → Install dabao</p>
+  </div>
+
+  <div class="card" style="border-color:#f59e0b;background:linear-gradient(135deg,#fffbeb,#fef3c7)">
+    <div style="font-size:32px">🛺</div><h3 style="font-weight:900;color:#92400e">Driver App - Approval Needed</h3><p class="small">Approval ke baad hi driver banoge - Voice Control</p>
+    <img class="qr" id="qrDriver" src="qr-driver.png" alt="Driver QR">
+    <div style="margin-top:12px;background:#fff;padding:10px;border-radius:12px;border:1px dashed #f59e0b">
+      <p style="font-size:11px;font-weight:800;color:#92400e">📲 Driver Install Link:</p>
+      <p style="font-size:10px;word-break:break-all;background:#fffbeb;padding:6px;border-radius:8px;margin-top:4px" id="linkDriver">https://toto-rides-nadc.ipfs.4everland.app/driver.html?city=ramgarh</p>
+      <button class="btn btn-y" onclick="copyLink('driver')"><span id="copyDriver">📋 Copy Link</span></button>
+      <a href="driver.html?city=ramgarh" style="text-decoration:none"><button class="btn btn-b" style="margin-top:8px">🛺 Driver App Open - Install Yahi Se Hoga</button></a>
+    </div>
+    <p class="small">📱 QR scan → Driver Registration → Admin Approval → Online</p>
+  </div>
+
+  <div class="card">
+    <h4 style="font-weight:900">📲 Install Kaise Hoga? (1-Click)</h4>
+    <div style="text-align:left;font-size:12px;line-height:1.6;margin-top:8px;background:#f8fafc;padding:12px;border-radius:12px">
+      <b>Android Chrome:</b><br>
+      1️⃣ QR Scan karo ya Link open karo<br>
+      2️⃣ Upar <b>📲 Install Banner</b> ayega - Install dabao<br>
+      3️⃣ Ya Chrome Menu (3 dot) → <b>Install App</b> / Add to Home Screen<br><br>
+      <b>iPhone Safari:</b><br>
+      1️⃣ QR Scan / Link open<br>
+      2️⃣ Share button (square + arrow) → <b>Add to Home Screen</b> → Add<br><br>
+      <b>Result:</b> Phone me 2 alag app banenge - <b>TOTO Customer</b> (hara) aur <b>TOTO Driver</b> (peela) - Alag alag icon, alag kaam!
+    </div>
+  </div>
+
+  <div class="card" style="border:2px dashed #0ea5e9">
+    <h4 style="font-weight:900">🔗 Har Jile Ke Liye Alag QR / Link</h4>
+    <p class="small">Aap har jile ke liye alag QR bana sakte ho - Link me city badlo</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;font-size:11px">
+      <a href="customer.html?city=ramgarh" style="background:#ecfdf5;padding:8px;border-radius:10px;text-decoration:none;color:#065f46;font-weight:800;text-align:center">Ramgarh Customer</a>
+      <a href="customer.html?city=ranchi" style="background:#ecfdf5;padding:8px;border-radius:10px;text-decoration:none;color:#065f46;font-weight:800;text-align:center">Ranchi Customer</a>
+      <a href="driver.html?city=ramgarh" style="background:#fffbeb;padding:8px;border-radius:10px;text-decoration:none;color:#92400e;font-weight:800;text-align:center">Ramgarh Driver</a>
+      <a href="driver.html?city=hazaribagh" style="background:#fffbeb;padding:8px;border-radius:10px;text-decoration:none;color:#92400e;font-weight:800;text-align:center">Hazaribagh Driver</a>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;display:flex;gap:8px">
+    <a href="index.html" style="flex:1;text-decoration:none"><button class="btn btn-w" style="width:100%">🏠 Main Hub</button></a>
+    <a href="https://toto-rides-nadc.ipfs.4everland.app/" style="flex:1;text-decoration:none"><button class="btn btn-w" style="width:100%">🌐 Web3 Site</button></a>
+  </div>
+</div>
+
+<script>
+function copyLink(type){
+  const id = type==='customer' ? 'linkCustomer' : 'linkDriver';
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btnId = type==='customer' ? 'copyCustomer' : 'copyDriver';
+    document.getElementById(btnId).textContent='✅ Copied!';
+    setTimeout(()=>{ document.getElementById(btnId).textContent='📋 Copy Link'; }, 2000);
+  });
+}
+</script>
+</body>
+</html>
