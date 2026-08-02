@@ -1,8 +1,13 @@
-const CACHE_NAME = 'toto-v3-full-advanced';
+const CACHE_NAME = 'toto-v4-pro-approval-voice';
 const urlsToCache = [
   './',
   './index.html',
+  './customer.html',
+  './driver.html',
+  './admin.html',
   './manifest.json',
+  './manifest-customer.json',
+  './manifest-driver.json',
   './icon-192.png',
   './icon-512.png',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',

@@ -1,58 +1,16 @@
 {
-  "name": "TOTO Rides - 1 Tap Auto Book",
+  "name": "TOTO - FULL PRO",
   "short_name": "TOTO",
-  "description": "🛺 TOTO Rides - Ramgarh Ranchi - 1 Tap me Auto Book, Driver Login, Live Track",
-  "start_url": "./?city=ramgarh&utm_source=pwa",
+  "description": "TOTO Rides FULL PRO - Driver Approval, Voice Control, Easy Install",
+  "start_url": "./?city=ramgarh&utm_source=pwa&utm_medium=main",
   "scope": "./",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "browser"],
   "background_color": "#ffffff",
   "theme_color": "#0ea5e9",
   "orientation": "portrait",
   "lang": "hi",
-  "dir": "ltr",
-  "categories": ["transportation", "travel", "navigation"],
   "icons": [
-    {
-      "src": "./icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "📍 Ramgarh Book",
-      "short_name": "Ramgarh",
-      "description": "Ramgarh me TOTO book karo",
-      "url": "./?city=ramgarh",
-      "icons": [{ "src": "./icon-192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "🏙️ Ranchi Book",
-      "short_name": "Ranchi",
-      "url": "./?city=ranchi",
-      "icons": [{ "src": "./icon-192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "🛺 Driver Login",
-      "short_name": "Driver",
-      "url": "./?tab=driver",
-      "icons": [{ "src": "./icon-192.png", "sizes": "192x192" }]
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "./icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "form_factor": "narrow"
-    }
+    {"src": "./icon-192.png","sizes": "192x192","type": "image/png","purpose": "any maskable"},
+    {"src": "./icon-512.png","sizes": "512x512","type": "image/png","purpose": "any maskable"}
   ]
 }

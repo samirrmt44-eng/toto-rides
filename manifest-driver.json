@@ -1,0 +1,20 @@
+{
+  "name": "TOTO Driver - Earn Money Driving",
+  "short_name": "TOTO Driver",
+  "description": "Driver App - Registration, Approval Needed, Voice Control, Earnings",
+  "start_url": "./driver.html?city=ramgarh&utm_source=pwa_driver",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#f59e0b",
+  "orientation": "portrait",
+  "lang": "hi",
+  "icons": [
+    {"src": "./icon-192.png","sizes": "192x192","type": "image/png","purpose": "any maskable"},
+    {"src": "./icon-512.png","sizes": "512x512","type": "image/png","purpose": "any maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Go Online", "url": "./driver.html?action=online", "icons": [{"src": "./icon-192.png","sizes": "192x192"}]},
+    {"name": "My Bookings", "url": "./driver.html?tab=bookings", "icons": [{"src": "./icon-192.png","sizes": "192x192"}]}
+  ]
+}
