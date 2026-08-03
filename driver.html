@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>TOTO Driver - Approval + Voice Control</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TOTO Driver Info - No Booking, Only Information</title>
 <meta name="theme-color" content="#f59e0b">
 <link rel="manifest" href="manifest-driver.json">
 <link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui,sans-serif;background:#0f172a;color:#f1f5f9}
 .top{background:#1e293b;padding:12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99;border-bottom:1px solid #334155}
@@ -17,314 +14,150 @@
 .wrap{max-width:520px;margin:0 auto;padding:12px 12px 80px}
 .card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:16px;margin:10px 0}
 .inp{width:100%;padding:12px;border:1px solid #334155;border-radius:10px;background:#0f172a;color:#f1f5f9;font-size:14px;margin-top:4px;outline:none}
-.inp:focus{border-color:#f59e0b}
-.badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:800}
-.b-pending{background:rgba(245,158,11,.2);color:#fbbf24} .b-approved{background:rgba(16,185,129,.2);color:#34d399} .b-rejected{background:rgba(239,68,68,.2);color:#f87171}
-#map{width:100%;height:280px;border-radius:16px;background:#1e293b;border:2px solid #334155}
-.voice-bar{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-radius:16px;padding:12px;display:flex;align-items:center;justify-content:space-between;margin:12px 0}
+.badge{padding:4px 10px;border-radius:8px;font-size:11px;font-weight:800} .b-pending{background:rgba(245,158,11,.2);color:#fbbf24} .b-approved{background:rgba(16,185,129,.2);color:#34d399}
 #toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#f8fafc;color:#0f172a;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:800;z-index:9999;opacity:0;transition:.3s;pointer-events:none}#toast.show{opacity:1}
 </style>
 </head>
 <body>
-<div class="top"><h1 style="color:#f59e0b">🛺 TOTO Driver PRO</h1><span id="cityBadge" style="font-size:11px;background:#334155;padding:4px 10px;border-radius:20px">Ramgarh</span></div>
+<div class="top"><h1 style="color:#f59e0b;font-weight:900">🛺 TOTO Driver Info</h1><span style="font-size:11px;background:#334155;padding:4px 10px;border-radius:20px">No Booking - Only Info</span></div>
 <div id="toast"></div>
-
 <div class="wrap">
-  <div style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-radius:20px;padding:18px;text-align:center;margin-bottom:12px">
-    <div style="font-size:32px">🛺</div><h2 style="font-size:20px;font-weight:900">Driver - Approval + Voice Control</h2><p style="font-size:12px;opacity:.9;margin-top:4px">Approval ke baad hi driver banoge • Voice se control</p>
+
+  <div style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border-radius:18px;padding:16px;text-align:center">
+    <div style="font-size:32px">ℹ️</div><h2 style="font-weight:900">Driver Info Only - No Booking System</h2>
+    <p style="font-size:12px;opacity:.9;margin-top:6px;line-height:1.4">SUTRA Philosophy: Hum booking nahi karwate, sirf aapki <b>JANKARI</b> passenger ko dikhate hain - Direct call, direct deal, no commission!</p>
+    <div style="margin-top:10px;background:rgba(255,255,255,.2);border-radius:10px;padding:8px;font-size:11px;font-weight:800">✅ Aap Online hoge to aapki jankari Ramgarh ke passengers ko dikhegi - Wo direct call karenge - Koi beech ka booking nahi!</div>
   </div>
 
-  <!-- VOICE CONTROL BAR - Driver Friendly -->
-  <div class="voice-bar">
-    <div><b>🎤 Voice Control</b><div style="font-size:11px;opacity:.9">Bolo: "Go Online", "Accept", "Offline"</div></div>
-    <button onclick="startDriverVoice()" style="background:#fff;color:#d97706;border:none;width:48px;height:48px;border-radius:14px;font-size:22px;cursor:pointer">🎤</button>
-  </div>
-
-  <!-- REGISTRATION -->
   <div id="regBox" class="card">
-    <h3 style="font-weight:900">📝 Driver Registration - Approval Needed</h3>
-    <p style="font-size:11px;color:#94a3b8;margin-top:4px">Form bharo → Admin ke paas jayega → Admin approve karega tabhi aap driver banoge. Customer ko approval nahi chahiye.</p>
+    <h3 style="font-weight:900">📝 Driver Info Registration - Approval Needed</h3>
+    <p style="font-size:11px;color:#94a3b8;margin-top:4px">Aapki jankari passenger ko dikhane ke liye - Approval ke baad hi visible hoge</p>
     <div style="text-align:center;margin:12px 0">
       <div id="photoBox" style="width:80px;height:80px;border-radius:50%;background:#334155;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:32px;border:3px dashed #475569;cursor:pointer" onclick="document.getElementById('photoIn').click()">📷</div>
       <input type="file" id="photoIn" accept="image/*" style="display:none" onchange="doPhoto(this)">
-      <div style="font-size:10px;color:#94a3b8;margin-top:4px">Photo - Voice se bhi bolo "Photo lo"</div>
     </div>
-    <div style="margin-bottom:10px"><label style="font-size:11px;font-weight:700;color:#94a3b8">👤 Naam (Voice: Bolo apna naam)</label><div style="display:flex;gap:6px"><input id="dName" class="inp" placeholder="Apna naam bolo ya likho"><button onclick="startVoiceField('dName')" style="background:#334155;border:none;width:40px;border-radius:10px">🎤</button></div></div>
-    <div style="margin-bottom:10px"><label style="font-size:11px;font-weight:700;color:#94a3b8">📱 Phone (10 digit)</label><div style="display:flex;gap:6px"><input id="dPhone" class="inp" placeholder="98765..."><button onclick="startVoiceField('dPhone')" style="background:#334155;border:none;width:40px;border-radius:10px">🎤</button></div></div>
-    <div style="margin-bottom:10px"><label style="font-size:11px">🛺 Vehicle</label><select id="dVeh" class="inp"><option value="auto">🛺 Auto</option><option value="e-rickshaw">🔋 E-Rickshaw</option><option value="bike">🏍️ Bike</option><option value="car">🚗 Car</option></select></div>
-    <div style="margin-bottom:10px"><label style="font-size:11px">🔢 Vehicle Number</label><input id="dNum" class="inp" placeholder="JH 02 AB 1234"></div>
-    <div style="margin-bottom:10px"><label style="font-size:11px">📍 City</label><select id="dCity" class="inp"><option value="ramgarh">Ramgarh</option><option value="hazaribagh">Hazaribagh</option><option value="ranchi">Ranchi</option><option value="dhanbad">Dhanbad</option><option value="patna">Patna</option></select></div>
-    <button class="btn btn-y btn-full" onclick="registerDriver()" style="margin-top:10px">📤 Approval Ke Liye Bhejo</button>
-    <p style="font-size:10px;color:#94a3b8;margin-top:8px;text-align:center">Registration ke baad admin approve karega - Aapko notification ayega. Tab tak aap driver nahi ban sakte. Customer ko approval nahi lagta.</p>
+    <div><label style="font-size:11px">👤 Naam</label><input id="dName" class="inp" placeholder="Apna naam"></div>
+    <div style="margin-top:8px"><label style="font-size:11px">📱 Phone</label><input id="dPhone" class="inp" placeholder="10 digit"></div>
+    <div style="margin-top:8px"><label style="font-size:11px">🛺 Vehicle</label><select id="dVeh" class="inp"><option value="auto">🛺 Auto</option><option value="e-rickshaw">🔋 E-Rickshaw - Go Green</option><option value="bike">🏍️ Bike</option></select></div>
+    <div style="margin-top:8px"><label style="font-size:11px">🔢 Vehicle No</label><input id="dNum" class="inp" placeholder="JH 02 AB 1234"></div>
+    <div style="margin-top:8px"><label style="font-size:11px">📍 Area - Kahan rehte ho? (Information)</label><input id="dArea" class="inp" placeholder="Ex: Bus Stand, Gola Road, Main Road"></div>
+    <div style="margin-top:8px"><label style="font-size:11px">🕒 Timing - Kab available ho? (Information)</label><input id="dTime" class="inp" placeholder="Ex: 6am-10pm, 24x7"></div>
+    <button class="btn btn-y btn-full" style="margin-top:12px" onclick="registerDriver()">📤 Jankari Bhejo - Approval Ke Liye</button>
   </div>
 
-  <!-- PENDING APPROVAL SCREEN -->
-  <div id="pendingBox" class="card" style="display:none;text-align:center;border:2px solid #fbbf24;background:#fffbeb">
+  <div id="pendingBox" class="card" style="display:none;text-align:center;border:2px solid #fbbf24;background:#fffbeb;color:#78350f">
     <div style="font-size:40px">⏳</div><h3 style="color:#92400e;font-weight:900">Approval Pending</h3>
-    <p style="font-size:12px;color:#78350f;margin-top:6px">Aapka registration admin ke paas gaya hai.</p>
-    <div style="background:#fff;border:1px solid #fbbf24;border-radius:12px;padding:12px;margin:12px 0;text-align:left;font-size:12px">
-      <div><b>Naam:</b> <span id="pName">-</span></div>
-      <div><b>Phone:</b> <span id="pPhone">-</span></div>
-      <div><b>Status:</b> <span class="badge b-pending">Pending Approval</span></div>
-      <div style="margin-top:8px;font-size:11px;color:#92400e">Admin: samir kumar (aap) ya jise aapne approver banaya hai, wahi approve kar sakta hai. Approve hote hi aap online ja sakoge.</div>
+    <p style="font-size:12px;margin-top:6px">Aapki jankari admin ke paas gayi - Approve hote hi aapki info passengers ko dikhegi - Koi booking system nahi, sirf information!</p>
+    <div style="background:#fff;border:1px solid #fbbf24;border-radius:12px;padding:10px;margin:10px 0;text-align:left;font-size:12px;color:#92400e">
+      <div><b>Naam:</b> <span id="pName">-</span></div><div><b>Phone:</b> <span id="pPhone">-</span></div><div><b>Status:</b> Pending Approval</div>
     </div>
-    <button class="btn btn-w btn-full" onclick="checkApprovalStatus()">🔄 Approval Status Check Karo</button>
-    <button class="btn btn-w btn-full" style="margin-top:8px" onclick="logoutDriver()">🚪 Logout / Naya Number</button>
+    <button class="btn btn-w btn-full" onclick="checkApprovalStatus()">🔄 Status Check Karo</button>
   </div>
 
-  <!-- APPROVED DASHBOARD -->
   <div id="dashBox" style="display:none">
-    <div class="card" style="text-align:center;background:linear-gradient(135deg,#ecfdf5,#d1fae5);border-color:#10b981">
+    <div class="card" style="text-align:center;background:linear-gradient(135deg,#ecfdf5,#d1fae5);border-color:#10b981;color:#065f46">
       <div id="dashPhoto" style="width:70px;height:70px;border-radius:50%;background:#fff;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:30px;border:3px solid #10b981">👤</div>
-      <h3 id="dashName" style="margin-top:8px;font-weight:900;color:#065f46">-</h3>
-      <p id="dashVeh" style="font-size:11px;color:#047857"></p>
-      <span id="dashStatus" class="badge b-approved" style="margin-top:8px">✅ Approved by Admin</span>
-      <p style="font-size:10px;color:#065f46;margin-top:6px">Approved By: <span id="approvedBy">Main Admin</span></p>
+      <h3 id="dashName" style="margin-top:8px;font-weight:900">-</h3><p id="dashVeh" style="font-size:11px"></p>
+      <span style="background:#10b981;color:#fff;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:800;margin-top:8px;display:inline-block">✅ Approved - Aapki Jankari Visible Hai</span>
+      <p style="font-size:10px;margin-top:6px">✅ Aap Online hoge to passenger ko aapki jankari dikhegi - Direct call ayega - No booking via platform!</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0">
-      <div style="background:#1e293b;border:1px solid #334155;border-radius:14px;padding:12px;text-align:center"><div style="font-size:20px;font-weight:900;color:#0ea5e9" id="sRides">0</div><div style="font-size:10px;color:#94a3b8">Rides</div></div>
-      <div style="background:#1e293b;border:1px solid #334155;border-radius:14px;padding:12px;text-align:center"><div style="font-size:20px;font-weight:900;color:#10b981" id="sEarn">₹0</div><div style="font-size:10px;color:#94a3b8">Earnings</div></div>
-      <div style="background:#1e293b;border:1px solid #334155;border-radius:14px;padding:12px;text-align:center"><div style="font-size:20px;font-weight:900" id="sRating">4.8</div><div style="font-size:10px;color:#94a3b8">Rating</div></div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center"><div><b>🟢 Online/Offline - Info Visibility</b><div style="font-size:11px;color:#94a3b8" id="onSt">🔴 Offline - Aapki jankari chhupi hai</div></div><button class="btn btn-y" id="onBtn" onclick="toggleOnline()">🟢 Online Jao - Jankari Dikhao</button></div>
+      <div style="margin-top:10px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;font-size:11px;color:#065f46">
+        <b>ℹ️ Information Only Mode:</b> Online hoge to customer app me aapki photo, naam, number, area, timing sab dikhega - Customer direct call karega - Koi booking, commission nahi!
+      </div>
     </div>
 
     <div class="card" style="background:#1e293b">
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div><b>🟢 Online/Offline</b><div style="font-size:11px;color:#94a3b8" id="onSt">🔴 Offline - Voice se bolo "Go Online"</div></div>
-        <button class="btn btn-y" id="onBtn" onclick="toggleOnline()">🟢 Go Online</button>
+      <h4 style="font-weight:900">📊 Aapki Jankari Kitne Logon Ne Dekhi?</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+        <div style="background:#0f172a;border:1px solid #334155;border-radius:12px;padding:12px;text-align:center"><div style="font-size:20px;font-weight:900;color:#0ea5e9" id="viewCount">0</div><div style="font-size:10px;color:#94a3b8">Views Today (Info)</div></div>
+        <div style="background:#0f172a;border:1px solid #334155;border-radius:12px;padding:12px;text-align:center"><div style="font-size:20px;font-weight:900;color:#10b981" id="callCount">0</div><div style="font-size:10px;color:#94a3b8">Calls (Direct, No Booking)</div></div>
       </div>
-      <div style="margin-top:10px;display:flex;gap:6px"><button class="btn btn-w" style="flex:1;font-size:11px" onclick="startDriverVoice()">🎤 Voice: Offline/Online</button><button class="btn btn-w" style="flex:1;font-size:11px" onclick="goLocate()">📍 GPS</button></div>
     </div>
 
-    <div id="map" style="height:280px"></div>
+    <div class="card">
+      <h4 style="font-weight:900">📤 Apni Jankari Dusro Ko Bhejo</h4>
+      <p style="font-size:11px;color:#94a3b8;margin-top:4px">Apni driver info ka link passenger ya dusre drivers ko bhejo</p>
+      <div style="background:#0f172a;border:1px solid #334155;border-radius:10px;padding:8px;margin-top:8px;font-size:10px;word-break:break-all" id="driverInfoLink">https://...</div>
+      <button class="btn btn-y btn-full" style="margin-top:8px" onclick="shareInfo()">📤 Info Link Share Karo</button>
+    </div>
 
-    <div style="margin-top:12px"><h4 style="font-size:14px;font-weight:900">📋 New Bookings - Voice se Accept Karo</h4><p style="font-size:11px;color:#94a3b8">Bolo: "Accept" ya "Reject"</p><div id="drvBooks" style="margin-top:8px"></div></div>
-
-    <div style="margin-top:12px;background:#1e293b;border:1px solid #334155;border-radius:14px;padding:12px">
-      <h4 style="font-size:13px;font-weight:800">👥 Approvers - Kisko Approval Power Dena Hai?</h4>
-      <p style="font-size:11px;color:#94a3b8;margin-top:4px">Aap main admin ho. Yahan kisi bhi driver ka phone daal kar usko Approver banao - wo bhi drivers ko approve kar sakega.</p>
-      <div style="display:flex;gap:6px;margin-top:8px"><input id="approverPhone" class="inp" placeholder="Approver ka phone (10 digit)" style="flex:1"><button class="btn btn-y" style="font-size:12px" onclick="addApprover()">+ Add</button></div>
-      <div id="approversList" style="margin-top:8px;font-size:12px"></div>
+    <div class="card" style="border:2px dashed #334155">
+      <h4 style="font-weight:900">👥 Kisko Approver Banana Hai?</h4>
+      <p style="font-size:11px;color:#94a3b8">Jise aap bharosemand mante ho, usko approver banao - Wo bhi drivers ki jankari approve kar sakega</p>
+      <div style="display:flex;gap:6px;margin-top:8px"><input id="approverPhone" class="inp" placeholder="Approver phone" style="flex:1"><button class="btn btn-y" onclick="addApprover()">+ Add</button></div>
+      <div id="approversList" style="margin-top:8px"></div>
     </div>
   </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script>
-let db=null,fb=false,map=null,city={id:'ramgarh',name:'Ramgarh',lat:23.63,lng:85.51},drv=null,photo='';
+let db=null,fb=false,drv=null,photo='';
 try{firebase.initializeApp({apiKey:"AIzaSyDJdRvlWn4UNqu2JSwRayHg49qEymG55KY",authDomain:"toto-rides.firebaseapp.com",databaseURL:"https://toto-rides-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"toto-rides"});db=firebase.database();fb=true;}catch(e){}
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.className='show';setTimeout(()=>t.className='',3500);}
-let CITIES={ramgarh:{name:'Ramgarh',lat:23.63,lng:85.51},hazaribagh:{name:'Hazaribagh',lat:23.99,lng:85.36},ranchi:{name:'Ranchi',lat:23.34,lng:85.31},dhanbad:{name:'Dhanbad',lat:23.80,lng:86.43}};
-function initMap(lat,lng){try{if(map)try{map.remove();}catch{}; map=L.map('map',{center:[lat,lng],zoom:13,zoomControl:false}); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OSM'}).addTo(map); setTimeout(()=>{try{map.invalidateSize();}catch{}},400);}catch{}}
-function goLocate(){if(!navigator.geolocation)return; navigator.geolocation.getCurrentPosition(p=>{ if(map) map.setView([p.coords.latitude,p.coords.longitude],15); });}
+function toast(m){const t=document.createElement('div');t.textContent=m;t.style.cssText='position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#f8fafc;color:#0f172a;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:800;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,.3)';document.body.appendChild(t);setTimeout(()=>t.remove(),3000);}
 function doPhoto(i){ if(i.files&&i.files[0]){ const r=new FileReader(); r.onload=e=>{ photo=e.target.result; document.getElementById('photoBox').innerHTML=`<img src="${photo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`; }; r.readAsDataURL(i.files[0]); } }
-
 function registerDriver(){
   const name=document.getElementById('dName').value.trim();
   const phone=document.getElementById('dPhone').value.trim();
   const veh=document.getElementById('dVeh').value;
   const num=document.getElementById('dNum').value.trim();
-  const cityId=document.getElementById('dCity').value;
+  const area=document.getElementById('dArea').value.trim()||'Ramgarh';
+  const timing=document.getElementById('dTime').value.trim()||'6am-10pm';
   if(!name||phone.length<10||!num){ toast('⚠️ Sab bharo'); return; }
-  const driver={name,phone,vehicle:veh,number:num,city:cityId,cityName:CITIES[cityId]?.name||cityId,photo:photo||'',approved:false,status:'pending',createdAt:Date.now(),approvedBy:null,online:false,rating:4.8,rides:0,earnings:0,role:'driver'};
-  try{ localStorage.setItem('totoDriver_'+phone, JSON.stringify(driver)); localStorage.setItem('totoDrv', JSON.stringify(driver)); }catch{}
-  // Pending list
-  try{
-    let pend=JSON.parse(localStorage.getItem('totoPendingDrivers')||'[]');
-    pend=pend.filter(d=>d.phone!==phone);
-    pend.push(driver);
-    localStorage.setItem('totoPendingDrivers', JSON.stringify(pend));
-  }catch{}
-  if(fb&&db){
-    db.ref('toto_drivers/'+phone).set(driver).then(()=>{
-      // Also add to pending queue for admin
-      db.ref('toto_pending_approvals/'+phone).set({...driver, timestamp:Date.now()});
-      toast('✅ Approval ke liye bheja gaya!');
-      showPending(driver);
-    }).catch(()=>{ toast('✅ Local me save hua - Admin approve karega'); showPending(driver); });
-  }else{
-    toast('✅ Local save - Admin approval pending');
-    showPending(driver);
-  }
+  const driver={name,phone,vehicle:veh,number:num,area,timing,city:'ramgarh',cityName:'Ramgarh',photo:photo||'',approved:false,status:'pending',createdAt:Date.now(),online:false,rating:4.8,rides:0,infoOnly:true,note:'Information only, no booking'};
+  try{ localStorage.setItem('totoDriver_'+phone, JSON.stringify(driver)); localStorage.setItem('totoDrv', JSON.stringify(driver)); let pend=JSON.parse(localStorage.getItem('totoPendingDrivers')||'[]'); pend=pend.filter(d=>d.phone!==phone); pend.push(driver); localStorage.setItem('totoPendingDrivers', JSON.stringify(pend)); }catch{}
+  if(fb&&db){ db.ref('toto_drivers/'+phone).set(driver).then(()=>{ db.ref('toto_pending_approvals/'+phone).set({...driver,timestamp:Date.now()}); toast('✅ Jankari bheji - Approval ke liye'); showPending(driver); }).catch(()=>{ showPending(driver); }); }else{ showPending(driver); }
 }
-
 function showPending(d){
   document.getElementById('regBox').style.display='none';
   document.getElementById('pendingBox').style.display='block';
   document.getElementById('dashBox').style.display='none';
-  document.getElementById('pName').textContent=d.name;
-  document.getElementById('pPhone').textContent=d.phone;
-  drv=d;
-  // Start polling for approval
-  const interval=setInterval(()=>{ checkApprovalStatus(()=>{ clearInterval(interval); }); }, 4000);
+  document.getElementById('pName').textContent=d.name; document.getElementById('pPhone').textContent=d.phone; drv=d;
+  setInterval(()=>{ checkApprovalStatus(()=>{}); }, 4000);
 }
-
 function checkApprovalStatus(cb){
   const phone=drv?.phone || document.getElementById('dPhone')?.value?.trim();
-  if(!phone){ toast('Phone nahi mila'); return; }
+  if(!phone) return;
   if(fb&&db){
     db.ref('toto_drivers/'+phone).once('value').then(snap=>{
-      if(snap.exists()){
-        const d=snap.val();
-        if(d.approved){
-          toast('🎉 Approved! Ab driver ban gaye!');
-          showDashboard(d);
-          if(cb) cb();
-        }else{
-          toast('⏳ Abhi pending hai - Admin approval wait');
-        }
-      }else{
-        // Check local
-        checkLocalApproval(phone, cb);
-      }
+      if(snap.exists() && snap.val().approved){ toast('🎉 Approved! Ab aapki jankari visible hai'); showDashboard(snap.val()); if(cb) cb(); }
+      else toast('⏳ Pending - Admin approve karega');
     });
   }else{
-    checkLocalApproval(phone, cb);
+    try{ const approvedPhones=JSON.parse(localStorage.getItem('totoApprovedDrivers')||'[]'); if(approvedPhones.includes(phone)){ const d=JSON.parse(localStorage.getItem('totoDriver_'+phone)||'{}'); showDashboard({...d,approved:true}); if(cb) cb(); } else toast('⏳ Pending'); }catch{}
   }
 }
-
-function checkLocalApproval(phone, cb){
-  try{
-    // Check if approved in local pending list (admin approved locally)
-    const approvedList=JSON.parse(localStorage.getItem('totoApprovedDrivers')||'[]');
-    if(approvedList.includes(phone)){
-      const driver=JSON.parse(localStorage.getItem('totoDriver_'+phone)||localStorage.getItem('totoDrv')||'{}');
-      driver.approved=true;
-      driver.approvedBy='Main Admin';
-      showDashboard(driver);
-      if(cb) cb();
-      return;
-    }
-    // Check main driver storage
-    const d=JSON.parse(localStorage.getItem('totoDriver_'+phone)||'{}');
-    if(d.approved){ showDashboard(d); if(cb) cb(); }
-    else toast('⏳ Pending - Admin ko bolo approve karne');
-  }catch(e){ toast('Check fail'); }
-}
-
 function showDashboard(d){
-  drv=d;
-  document.getElementById('regBox').style.display='none';
-  document.getElementById('pendingBox').style.display='none';
-  document.getElementById('dashBox').style.display='block';
-  document.getElementById('dashName').textContent=d.name;
-  document.getElementById('dashVeh').textContent=(d.vehicle||'')+' • '+(d.number||'');
-  document.getElementById('approvedBy').textContent=d.approvedBy||'Main Admin';
-  if(d.photo) document.getElementById('dashPhoto').innerHTML=`<img src="${d.photo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
-  try{ localStorage.setItem('totoDrv', JSON.stringify({...d, approved:true})); }catch{}
-  initMap(CITIES[d.city]?.lat||23.63, CITIES[d.city]?.lng||85.51);
+  drv=d; document.getElementById('regBox').style.display='none'; document.getElementById('pendingBox').style.display='none'; document.getElementById('dashBox').style.display='block';
+  document.getElementById('dashName').textContent=d.name; document.getElementById('dashVeh').textContent=(d.vehicle||'')+' • '+(d.number||''); if(d.photo) document.getElementById('dashPhoto').innerHTML=`<img src="${d.photo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+  try{ localStorage.setItem('totoDrv', JSON.stringify({...d,approved:true})); }catch{}
+  document.getElementById('driverInfoLink').textContent=location.origin+location.pathname.replace('driver.html','')+'customer.html?city='+(d.city||'ramgarh')+'&driver='+d.phone+' - Info Only';
   loadApprovers();
-  if(fb) loadBookings();
 }
-
-function logoutDriver(){
-  try{ localStorage.removeItem('totoDrv'); localStorage.removeItem('totoDriver_'+(drv?.phone||'')); }catch{}
-  document.getElementById('regBox').style.display='block';
-  document.getElementById('pendingBox').style.display='none';
-  document.getElementById('dashBox').style.display='none';
-}
-
 function toggleOnline(){
   if(!drv) return;
   drv.online=!drv.online;
-  try{ localStorage.setItem('totoDrv', JSON.stringify(drv)); }catch{}
+  try{ localStorage.setItem('totoDrv', JSON.stringify(drv)); localStorage.setItem('totoDriver_'+drv.phone, JSON.stringify(drv)); }catch{}
   if(fb&&db) db.ref('toto_drivers/'+drv.phone+'/online').set(drv.online);
-  document.getElementById('onBtn').textContent=drv.online?'🔴 Go Offline':'🟢 Go Online';
-  document.getElementById('onBtn').className=drv.online?'btn btn-r':'btn btn-g';
-  document.getElementById('onSt').textContent=drv.online?'🟢 Online - Bolo "Offline"':'🔴 Offline - Bolo "Online"';
-  toast(drv.online?'🟢 Online! Bookings ayengi':'🔴 Offline');
-  if(drv.online && fb) loadBookings();
+  document.getElementById('onBtn').textContent=drv.online?'🔴 Offline - Info Chhupao':'🟢 Online - Jankari Dikhao';
+  document.getElementById('onSt').textContent=drv.online?'🟢 Online - Aapki jankari passengers ko dikh rahi hai - Direct call ayega':'🔴 Offline - Jankari chhupi hai';
+  toast(drv.online?'🟢 Online - Info visible!':'🔴 Offline - Info hidden');
 }
-
-function loadBookings(){
-  if(!fb||!db) return;
-  db.ref('toto_bookings').orderByChild('status').equalTo('pending').once('value', snap=>{
-    const el=document.getElementById('drvBooks');
-    if(!snap.exists()){ if(el) el.innerHTML='<div style="text-align:center;padding:20px">No bookings</div>'; return; }
-    const bks=[]; snap.forEach(ch=>{ const v=ch.val(); if(v.city===drv.city) bks.push(v); });
-    if(!bks.length){ el.innerHTML='<div style="text-align:center;padding:20px">No bookings for '+drv.city+'</div>'; return; }
-    el.innerHTML=bks.map(b=>`<div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:12px;margin:8px 0;border-left:4px solid #f59e0b"><div style="font-size:11px">📍 ${b.from} → 🏁 ${b.to}</div><div style="font-size:11px;margin-top:4px">Fare: <b>${b.fare}</b></div><div style="display:flex;gap:6px;margin-top:8px"><button class="btn btn-g" style="flex:1" onclick="acceptBooking('${b.id}')">✅ Accept - Bolo Accept</button><button class="btn btn-r" style="flex:1" onclick="rejectBooking('${b.id}')">❌ Reject</button></div></div>`).join('');
-  });
-}
-
-function acceptBooking(id){
-  if(!drv) return;
-  if(fb&&db){
-    db.ref('toto_bookings/'+id).update({status:'accepted',driverName:drv.name,driverPhone:drv.phone,driverVehicle:drv.vehicle}).then(()=>{ toast('✅ Accepted!'); loadBookings(); });
-  }
-}
-function rejectBooking(id){ if(fb&&db) db.ref('toto_bookings/'+id).update({status:'rejected'}).then(()=>{ toast('❌ Rejected'); loadBookings(); }); }
-
-function addApprover(){
-  const ph=document.getElementById('approverPhone').value.trim();
-  if(ph.length<10){ toast('⚠️ Sahi phone dalo'); return; }
-  try{
-    let list=JSON.parse(localStorage.getItem('totoApprovers')||'[]');
-    if(!list.includes(ph)){ list.push(ph); localStorage.setItem('totoApprovers', JSON.stringify(list)); toast('✅ Approver added: '+ph); loadApprovers(); }
-    else toast('Already approver');
-    if(fb&&db) db.ref('toto_approvers/'+ph).set({phone:ph, addedBy: drv?.phone||'main', addedAt: Date.now()});
-  }catch(e){ toast('Error'); }
-}
-function loadApprovers(){
-  try{
-    const list=JSON.parse(localStorage.getItem('totoApprovers')||'[]');
-    const el=document.getElementById('approversList');
-    if(!list.length){ el.innerHTML='<div style="font-size:11px;color:#94a3b8">No additional approvers - Only you (main admin) can approve</div>'; return; }
-    el.innerHTML=list.map(ph=>`<div style="display:flex;justify-content:space-between;background:#0f172a;padding:6px 10px;border-radius:8px;margin:4px 0"><span>📱 ${ph}</span><button onclick="removeApprover('${ph}')" style="background:#ef4444;color:#fff;border:none;padding:2px 8px;border-radius:6px;font-size:10px">Remove</button></div>`).join('');
-  }catch{}
-}
-function removeApprover(ph){ try{ let list=JSON.parse(localStorage.getItem('totoApprovers')||'[]'); list=list.filter(x=>x!==ph); localStorage.setItem('totoApprovers', JSON.stringify(list)); loadApprovers(); if(fb&&db) db.ref('toto_approvers/'+ph).remove(); toast('Removed'); }catch{} }
-
-// Voice Control for Driver
-function startDriverVoice(){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){ toast('🎤 Voice not supported - Chrome use karo'); return; }
-  const rec=new SR(); rec.lang='hi-IN'; rec.interimResults=false;
-  toast('🎤 Bolo... Go Online / Accept / Offline');
-  rec.start();
-  rec.onresult=e=>{
-    const text=e.results[0][0].transcript.toLowerCase();
-    toast('🎤 Suna: '+text);
-    if(text.includes('online') || text.includes('ऑनलाइन')){ if(!drv||!drv.online) toggleOnline(); }
-    else if(text.includes('offline') || text.includes('ऑफलाइन')){ if(drv&&drv.online) toggleOnline(); }
-    else if(text.includes('accept') || text.includes('एक्सेप्ट') || text.includes('हाँ')){ const btn=document.querySelector('#drvBooks .btn-g'); if(btn) btn.click(); else toast('No booking to accept'); }
-    else if(text.includes('reject') || text.includes('ना') || text.includes('नहीं')){ const btn=document.querySelector('#drvBooks .btn-r'); if(btn) btn.click(); }
-    else if(text.includes('photo') || text.includes('फोटो')){ document.getElementById('photoIn').click(); }
-  };
-  rec.onerror=()=>toast('Voice error');
-}
-function startVoiceField(id){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){ toast('Voice not supported'); return; }
-  const rec=new SR(); rec.lang='hi-IN';
-  toast('🎤 Bolo...');
-  rec.start();
-  rec.onresult=e=>{
-    const text=e.results[0][0].transcript;
-    document.getElementById(id).value=text;
-    toast('✅ '+text);
-  };
-}
+function shareInfo(){ const url=document.getElementById('driverInfoLink').textContent; if(navigator.share) navigator.share({title:'TOTO Driver Info Only',text:'🛺 Driver Jankari - No Booking, Only Information - Direct Call',url}); else { navigator.clipboard.writeText(url).then(()=>toast('Link copied')); window.open('https://wa.me/?text='+encodeURIComponent('🛺 Driver Info Only - No Booking: '+url),'_blank'); } }
+function addApprover(){ const ph=document.getElementById('approverPhone').value.trim(); if(ph.length<10){toast('Phone dalo');return;} try{ let list=JSON.parse(localStorage.getItem('totoApprovers')||'[]'); if(!list.includes(ph)){ list.push(ph); localStorage.setItem('totoApprovers', JSON.stringify(list)); toast('Approver added'); loadApprovers(); } }catch{} if(fb&&db) db.ref('toto_approvers/'+ph).set({phone:ph}); }
+function loadApprovers(){ try{ const list=JSON.parse(localStorage.getItem('totoApprovers')||'[]'); const el=document.getElementById('approversList'); if(!list.length){ el.innerHTML='<div style="font-size:11px;color:#94a3b8">No approvers - Only you</div>'; return; } el.innerHTML=list.map(ph=>`<div style="display:flex;justify-content:space-between;background:#0f172a;padding:8px;border-radius:8px;margin:4px 0"><span>📱 ${ph}</span><button onclick="removeApprover('${ph}')" style="background:#ef4444;color:#fff;border:none;padding:4px 8px;border-radius:6px">Remove</button></div>`).join(''); }catch{} }
+function removeApprover(ph){ try{ let list=JSON.parse(localStorage.getItem('totoApprovers')||'[]'); list=list.filter(x=>x!==ph); localStorage.setItem('totoApprovers', JSON.stringify(list)); loadApprovers(); if(fb&&db) db.ref('toto_approvers/'+ph).remove(); }catch{} }
 
 document.addEventListener('DOMContentLoaded', ()=>{
-  // Check if driver already logged in
   try{
     const saved=JSON.parse(localStorage.getItem('totoDrv')||'null');
-    if(saved){
-      if(saved.approved){ showDashboard(saved); }
-      else{ showPending(saved); }
-    }
+    if(saved){ if(saved.approved) showDashboard(saved); else showPending(saved); }
   }catch{}
-  const p=new URLSearchParams(location.search);
-  const city=p.get('city')||'ramgarh';
-  // map init for reg
-  setTimeout(()=>{ 
-    const lat=CITIES[city]?.lat||23.63, lng=CITIES[city]?.lng||85.51;
-    try{ const mEl=document.getElementById('map'); if(mEl){ /* map will init on dashboard */ } }catch{}
-  }, 500);
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(()=>{}); }
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
   loadApprovers();
 });
 </script>
